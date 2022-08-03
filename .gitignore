@@ -1,0 +1,13 @@
+.DS_Store
+.history/
+.idea/
+.vscode/
+*/target/*
+.classpath
+.project
+.settings/
+target/
+*/target/**
+*.iml
+verify.groovy
+settings.xml
