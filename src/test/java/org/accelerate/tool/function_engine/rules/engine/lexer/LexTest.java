@@ -1,4 +1,4 @@
-package org.accelerate.tdm.smartdata.rules.engine.lexer;
+package org.accelerate.tool.function_engine.rules.engine.lexer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -107,7 +107,7 @@ public class LexTest {
         Function function = (Function)root.getChildren().get(1);
         assertEquals("function",(function.getFunctionName()));
         assertEquals( "Rules Class error : "+ function.getFunctionName(),
-                    "org.accelerate.tdm.smartdata.rules.FunctionRuleForTest",
+                    "org.accelerate.tool.function_engine.rules.FunctionRuleForTest",
                     (function.getFunctionClass()));
     }
     @Test

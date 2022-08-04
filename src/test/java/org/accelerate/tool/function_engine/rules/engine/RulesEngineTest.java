@@ -1,4 +1,4 @@
-package org.accelerate.tdm.smartdata.rules.engine;
+package org.accelerate.tool.function_engine.rules.engine;
 
 
 import static org.junit.Assert.assertEquals;
@@ -85,7 +85,7 @@ public class RulesEngineTest {
     public void testRuleEngineWithAFunctionThatContentAFunctionInParameter()
     {
        String result = engine.execute("@anonymize.anonymiseUUID(${oldId})");
-       assertNotEquals("Result connot be null"  ,result,null);
+       assertNotEquals("Result cannot be null"  ,result,null);
        assertEquals("Size of the key expected is 38 instead of : " + result.length() ,38,result.length());
     }
     @Test
