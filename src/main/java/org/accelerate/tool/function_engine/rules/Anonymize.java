@@ -1,4 +1,4 @@
-package org.accelerate.tdm.smartdata.rules;
+package org.accelerate.tool.function_engine.rules;
 
 import java.util.Map;
 import java.util.UUID;

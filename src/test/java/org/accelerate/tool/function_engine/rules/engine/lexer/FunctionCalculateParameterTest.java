@@ -1,4 +1,4 @@
-package org.accelerate.tdm.smartdata.rules.engine.lexer;
+package org.accelerate.tool.function_engine.rules.engine.lexer;
 
 import static org.junit.Assert.*;
 import org.junit.Test;

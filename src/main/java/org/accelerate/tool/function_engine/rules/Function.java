@@ -1,4 +1,4 @@
-package org.accelerate.tdm.smartdata.rules;
+package org.accelerate.tool.function_engine.rules;
 
 import java.lang.annotation.Target;
 import java.lang.annotation.Retention;
