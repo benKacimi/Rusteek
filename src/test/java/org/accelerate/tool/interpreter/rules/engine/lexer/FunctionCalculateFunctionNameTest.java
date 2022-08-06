@@ -1,6 +1,8 @@
-package org.accelerate.tool.function_engine.rules.engine.lexer;
+package org.accelerate.tool.interpreter.rules.engine.lexer;
 
 import static org.junit.Assert.*;
+
+import org.accelerate.tool.interpreter.rules.engine.lexer.Function;
 import org.junit.Test;
 
 public class FunctionCalculateFunctionNameTest {

@@ -1,8 +1,9 @@
-package org.accelerate.tool.function_engine.rules.engine;
+package org.accelerate.tool.interpreter.rules.engine;
 
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -87,6 +88,7 @@ public class RulesEngineTest {
        String result = engine.execute("@anonymize.anonymiseUUID(${oldId})");
        assertNotEquals("Result cannot be null"  ,result,null);
        assertEquals("Size of the key expected is 38 instead of : " + result.length() ,38,result.length());
+       assertNull(ThreadContext.getVariableValue("var1"));
     }
     @Test
     public void testRuleEngineWithThreadlocalValue()
@@ -99,6 +101,9 @@ public class RulesEngineTest {
        
        assertEquals("bar expected instead of : " + result ,"bar",(result));
        ThreadContext.remove();
+       assertNull(ThreadContext.getVariableValue("var1"));
+       
+
     }
     @Test
     public void testRuleEngineWithThreadlocalValueAndSpaceCaratere()
@@ -112,6 +117,7 @@ public class RulesEngineTest {
        
       assertEquals("bar expected instead of : " + result ,"bar",(result));
       ThreadContext.remove();
+      assertNull(ThreadContext.getVariableValue("var1"));
     }
 
     @Test
@@ -125,6 +131,7 @@ public class RulesEngineTest {
       String result = engine.execute("@encrypt.AESEncrypt($customerName)");
       assertNotEquals("@encrypt.AESEncrypt($customerName)",(result));
       ThreadContext.remove();
+      assertNull(ThreadContext.getVariableValue("customerName"));
     }
     
     

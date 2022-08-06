@@ -1,4 +1,4 @@
-package org.accelerate.tool.function_engine.rules;
+package org.accelerate.tool.interpreter.rules;
 
 import java.lang.annotation.Target;
 import java.lang.annotation.Retention;
