@@ -104,7 +104,7 @@ public class Function extends AbstractFunction {
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                 | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            //e.printStackTrace();
         }                                                                                                                                                                  
         return null;
     }
