@@ -1,6 +1,13 @@
-package org.accelerate.tool.function_engine.rules.engine.lexer;
+package org.accelerate.tool.interpreter.rules.engine.lexer;
 
 import static org.junit.Assert.assertEquals;
+
+import org.accelerate.tool.interpreter.rules.engine.lexer.Argument;
+import org.accelerate.tool.interpreter.rules.engine.lexer.Function;
+import org.accelerate.tool.interpreter.rules.engine.lexer.Lexer;
+import org.accelerate.tool.interpreter.rules.engine.lexer.Literal;
+import org.accelerate.tool.interpreter.rules.engine.lexer.Node;
+import org.accelerate.tool.interpreter.rules.engine.lexer.Variable;
 import org.junit.Test;
 
 public class  MultipleArgumentsFunctionTest {

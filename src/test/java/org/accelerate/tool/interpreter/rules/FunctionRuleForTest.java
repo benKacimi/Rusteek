@@ -1,5 +1,7 @@
-package org.accelerate.tool.function_engine.rules;
+package org.accelerate.tool.interpreter.rules;
 
+import org.accelerate.tool.interpreter.rules.Function;
+import org.accelerate.tool.interpreter.rules.IRule;
 import org.springframework.stereotype.Component;
 
 @Component("function")

@@ -1,4 +1,4 @@
-package org.accelerate.tool.function_engine.rules.engine;
+package org.accelerate.tool.interpreter.rules.engine;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +18,8 @@ public class ThreadContext {
     }
 
     public static String getVariableValue(final String key){
+        if (threadDataProperties.get() == null)
+            throw new IllegalStateException("ThreadContext is not initialized or has been remove");
          return threadDataProperties.get().get(key);
     }
     

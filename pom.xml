@@ -2,13 +2,34 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    
     <modelVersion>4.0.0</modelVersion>
      
     <groupId>org.accelerate.tool</groupId>
     <version>0.1.0</version>
-    <artifactId>function-engine</artifactId>
+    <artifactId>interpreter</artifactId>
+    <packaging>jar</packaging>
     
+    <name>Interpeter</name>
+	<description>Analyze and eval intruction</description>
+	<url>https://github.com/benKacimi/function-engine</url>
+	<inceptionYear>2022</inceptionYear>
+	<licenses>
+		<license>
+			<name>Common Public License Version 1.0</name>
+			<url>http://www.opensource.org/licenses/cpl1.0</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>benkacimi</id>
+			<name>Ben Amar KACIMIr</name>
+			<email>ben.kacimi@gmail.com</email>
+			<url></url>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -58,7 +79,6 @@
                 <executions>
                     <execution>
                         <id>pit-report</id>
-                        <!-- optional, this example attached the goal into mvn test phase -->
                         <phase>test</phase>
                         <goals>
                             <goal>mutationCoverage</goal>

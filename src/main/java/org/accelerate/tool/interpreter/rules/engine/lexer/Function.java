@@ -1,4 +1,4 @@
-package org.accelerate.tool.function_engine.rules.engine.lexer;
+package org.accelerate.tool.interpreter.rules.engine.lexer;
 
 
 import java.lang.annotation.Annotation;
@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import org.accelerate.tool.function_engine.rules.IRule;
+import org.accelerate.tool.interpreter.rules.IRule;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -21,7 +21,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 public class Function extends AbstractFunction {
-    private static final ApplicationContext ruleContainer =  new AnnotationConfigApplicationContext("org.accelerate.tool.function_engine.rules");
+    private static final ApplicationContext ruleContainer =  new AnnotationConfigApplicationContext("org.accelerate.tool.interpreter.rules");
     private String  functionName;
     private boolean isEvaluated;
     private String  functionClass;
@@ -92,10 +92,10 @@ public class Function extends AbstractFunction {
             rule = (IRule)Class.forName (functionClass).getConstructor().newInstance();
             Method[] methods = rule.getClass().getMethods();
             for(Method aMethod : methods) {
-                if (aMethod.isAnnotationPresent(org.accelerate.tool.function_engine.rules.Function.class)){
+                if (aMethod.isAnnotationPresent(org.accelerate.tool.interpreter.rules.Function.class)){
                     Annotation[] arrayAnnotations = aMethod.getAnnotations();
                     for (Annotation annotation : arrayAnnotations) {
-                        org.accelerate.tool.function_engine.rules.Function functionAnnotation  = (org.accelerate.tool.function_engine.rules.Function)annotation;
+                        org.accelerate.tool.interpreter.rules.Function functionAnnotation  = (org.accelerate.tool.interpreter.rules.Function)annotation;
                         if (functionName.equals(functionAnnotation.name()) || functionName.equals(aMethod.getName()))
                             return aMethod;
                     }
