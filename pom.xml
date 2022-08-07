@@ -7,7 +7,7 @@
     <groupId>org.accelerate.tool</groupId>
     <version>0.1.0</version>
     <artifactId>interpreter</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     
     <name>Interpeter</name>
 	<description>Analyze and eval intruction</description>
@@ -37,57 +37,13 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <lombok.version>1.18.16</lombok.version>
-        <spring-context.version>5.3.21</spring-context.version>
-        <junit.version>4.12</junit.version>
-        <slf4j-api.version>1.7.26</slf4j-api.version>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring-context.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-          </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j-api.version}</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.pitest</groupId>
-                <artifactId>pitest-maven</artifactId>
-                <version>1.9.4</version>
-                <executions>
-                    <execution>
-                        <id>pit-report</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>mutationCoverage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-             </plugin>
-        </plugins>
-    </build>
+    <modules>
+        <module>interpreter-engine</module>
+        <module>interpreter-function</module>
+    </modules>
+    
    
 
 </project>
