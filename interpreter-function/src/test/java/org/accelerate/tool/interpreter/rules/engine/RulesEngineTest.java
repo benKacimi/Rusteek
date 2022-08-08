@@ -20,6 +20,7 @@ public class RulesEngineTest {
        String result = engine.execute("@anonymize.anonymiseUUID(${oldId})");
        assertNotEquals("Result cannot be null"  ,result,null);
        assertEquals("Size of the key expected is 38 instead of : " + result.length() ,38,result.length());
+       ThreadContext.remove();
        assertNull(ThreadContext.getVariableValue("var1"));
     }
  
