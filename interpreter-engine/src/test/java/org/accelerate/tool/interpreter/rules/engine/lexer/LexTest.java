@@ -130,6 +130,42 @@ public class LexTest {
         Function function = (Function)root.getChildren().get(1);
         assertEquals("Function Name should be func23 instead : " + function.getFunctionName(),"func23",(function.getFunctionName()));
     }
+
+    @Test
+    public void testLexASimpleFunctionWittEqualParameter()
+    {
+        String str = "foo@bar.com@func23(foo=bar)";
+        Lexer lexer = new Lexer();
+        Node root = lexer.lex (str);
+        Function function = (Function)root.getChildren().get(1);
+        assertEquals("Function Name should be func23 instead : " + function.getFunctionName(),"func23",(function.getFunctionName()));
+        function.getArguments().get(0).getChildren().get(0);
+        String argumentName = function.getArguments().get(0).getName();
+        assertEquals("Parameter Name should be foo instead : " + argumentName,"foo",argumentName);
+        String argumentValue = ((Literal)function.getArguments().get(0).getChildren().get(0)).getValue();
+        assertEquals("Parameter Value should be bar instead : " + argumentValue,"bar",argumentValue);
+    }
+    @Test
+    public void testLexASimpleFunctionWittWrongEqualParameter()
+    {
+        String str = "@function(bar=,foo=fuzz,=buzz)";
+        Lexer lexer = new Lexer();
+        Node root = lexer.lex (str);
+        Function function = (Function)root.getChildren().get(0);
+        assertEquals("Function Name should be function instead : " + function.getFunctionName(),"function",(function.getFunctionName()));
+        
+        String parameterValue1 = ((Literal)function.getArguments().get(0).getChildren().get(0)).getValue();
+        assertEquals("Parameter Value should be [bar=]instead : " + parameterValue1,"bar=",parameterValue1);
+        
+        String argumentName2 = function.getArguments().get(1).getName();
+        assertEquals("Parameter 2 Name should be [foo] instead : " + argumentName2,"foo",argumentName2);
+        String argumentValue2 = ((Literal)function.getArguments().get(1).getChildren().get(0)).getValue();
+        assertEquals("Parameter Value should be fuzz instead : " + argumentValue2,"fuzz",argumentValue2);
+
+        String parameterValue3 = ((Literal)function.getArguments().get(2).getChildren().get(0)).getValue();
+        assertEquals("Parameter Value should be [=buzz] instead : " + parameterValue3,"=buzz",parameterValue3);
+        
+    }
     @Test
     public void testLexASimpleVariale()
     {

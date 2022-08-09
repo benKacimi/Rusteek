@@ -16,7 +16,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 public class Variable implements INode{
-    private final static Pattern VARIABLE_SYNTAX_REGEX = Pattern.compile("^[a-zA-Z0-9.]+$");
+    private static final Pattern VARIABLE_SYNTAX_REGEX = Pattern.compile("^[a-zA-Z0-9.]+$");
     private String keyName;
 
     protected static Variable createInstance(final String lexem){
@@ -26,10 +26,10 @@ public class Variable implements INode{
             return null;
         int closingAccolade = lexem.indexOf('}');
         if (lexem.charAt(1) == '{' && closingAccolade != -1){
-            Variable var = new Variable();
-            var.setKeyName((lexem.substring(2,closingAccolade)));
-            if (checkKeyNameSyntax(var.getKeyName().trim()))
-                return var;
+            Variable variable = new Variable();
+            variable.setKeyName((lexem.substring(2,closingAccolade)));
+            if (checkKeyNameSyntax(variable.getKeyName().trim()))
+                return variable;
         }
         return null;
     }

@@ -147,22 +147,31 @@ public class Function extends AbstractFunction {
         Method aMethod = seekMethod();
         if (aMethod == null)
             return error();
-        Object[] argumentArray = null;
-        try {
-            if (arguments != null){
-                argumentArray = new String[arguments.size()];
-                for (int i = 0; i< arguments.size(); i++){
-                    Argument arg = arguments.get(i);
-                    argumentArray[i] = arg.apply();
-                }
-            } 
+        Object[] argumentArray = evalArguments(false);
+        try { 
             return  (String)aMethod.invoke(rule,argumentArray);
         }
         catch (  IllegalArgumentException | IllegalAccessException | InvocationTargetException | ClassCastException  e) {
             return error();
         }
     }
-
+    private String[] evalArguments(boolean errorFormat){
+        if (arguments == null)
+            return null;
+        String[] argumentArray = new String[arguments.size()];
+        for (int i = 0; i< arguments.size(); i++){
+            Argument arg = arguments.get(i);
+            if (errorFormat){
+                if (arg.getName() != null && !"".equals(arg.getName()))
+                    argumentArray[i] = new StringBuilder(arg.getName()).append("=").append( arg.apply()).toString();
+                else
+                    argumentArray[i] =  arg.apply();  
+            }
+            else
+                argumentArray[i] = arg.apply();
+        }
+        return argumentArray;
+    }
     private String error(){
         StringBuilder result = new StringBuilder("@");
         if (functionAnnotationName != null && !"".equals(functionAnnotationName)){
@@ -171,7 +180,11 @@ public class Function extends AbstractFunction {
         }
         result.append(functionName);
         result.append("(");
-        result.append(parameter);
+        String[] argumentArray = evalArguments(true);
+        if (argumentArray == null)
+            result.append(parameter);
+        else
+            result.append(String.join(",",argumentArray));
         result.append(")");
         return result.toString();
     }
