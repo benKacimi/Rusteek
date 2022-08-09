@@ -48,6 +48,26 @@ public class RulesEngineTest {
        String result = engine.execute("@nonExistentFunction()");
        assertEquals("@nonExistentFunction() expected instead of : " + result,  "@nonExistentFunction()",result);
     }
+
+    @Test
+    public void testRuleEngineWithAFunctionThatDoesntExistWithParameterToEval()
+    {
+       String result = engine.execute("@nonExistentFunction(@function())");
+       assertEquals("@nonExistentFunction(foo) expected instead of : " + result,  "@nonExistentFunction(foo)",result);
+    }
+
+    @Test
+    public void testRuleEngineWithAFunctionThatDoesntExistWithParameterAndParameterName()
+    {
+       String result = engine.execute("@nonExistentFunction(bar = @function())");
+       assertEquals("@nonExistentFunction(bar=foo) expected instead of : " + result,  "@nonExistentFunction(bar=foo)",result);
+    }
+    @Test
+    public void testRuleEngineWithAFunctionThatDoesntExistWithParameterAndEqualCaratere()
+    {
+       String result = engine.execute("@nonExistentFunction( = @function())");
+       assertEquals("@nonExistentFunction(=foo) expected instead of : " + result,  "@nonExistentFunction(= foo)",result);
+    }
     @Test
     public void testRuleEngineWithAFunctionThatDoesntExistWithAnExistingClass()
     {
@@ -70,8 +90,9 @@ public class RulesEngineTest {
     @Test
     public void testRuleEngineWithAFunctionThatContaindAWrongNumberOfParameter()
     {
-       String result = engine.execute("@function(foo=bar)");
+       String result = engine.execute("@function(foo= bar)");
        assertEquals("@function(foo=bar) expected instead of : " + result,  "@function(foo=bar)",(result));
+       //Note : we lost the backspace caracter in the result (foo=bar instead of foo= bar)
     }
 
     @Test

@@ -24,11 +24,9 @@ public class Literal implements INode {
                     literalNode.setValue(lexem.substring(0,i));
                     return literalNode;
                 }
-            } else if (lexem.charAt(i) == '$'){
-                if (Variable.createInstance(lexem.substring(i)) != null){
-                    literalNode.setValue(lexem.substring(0,i));
-                    return literalNode;
-                }
+            } else if (lexem.charAt(i) == '$' && Variable.createInstance(lexem.substring(i)) != null){
+                literalNode.setValue(lexem.substring(0,i));
+                return literalNode;
             }
         }
         return literalNode;
