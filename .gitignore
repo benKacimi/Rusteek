@@ -11,3 +11,4 @@ target/
 *.iml
 verify.groovy
 settings.xml
+jacoco.exec
