@@ -14,7 +14,7 @@ import lombok.experimental.FieldDefaults;
 @Setter
 public class Argument extends Node {
 
-    private String name;
+    private String name = "";
 
     protected static List<Argument> createArgumentList(final String strArguments){
         

@@ -70,7 +70,7 @@ public class Function extends AbstractFunction {
             String functionAnnotationName = calculateAnnotationFunctionName(lexem);
             
             String functionName = "";
-            if (functionAnnotationName == null || "".equals(functionAnnotationName))
+            if ("".equals(functionAnnotationName))
                 functionName = calculateFunctionName(lexem);
             else
                 functionName = calculateFunctionName(lexem.substring(1+functionAnnotationName.length()));
@@ -83,7 +83,7 @@ public class Function extends AbstractFunction {
                 functionNode.setArguments(Argument.createArgumentList(functionParameter.trim()));
             try {
                 Object function =  null; 
-                if (functionAnnotationName == null || "".equals(functionAnnotationName))
+                if ("".equals(functionAnnotationName))
                     function = ruleContainer.getBean(functionName.trim());
                 else
                     function = ruleContainer.getBean(functionAnnotationName.trim());
@@ -106,7 +106,7 @@ public class Function extends AbstractFunction {
             closingParenthesisIndex > openingParenthesisIndex ){
             String functionAnnotationName = calculateAnnotationFunctionName(lexem);
             String functionName = "";
-            if (functionAnnotationName == null || "".equals(functionAnnotationName))
+            if ("".equals(functionAnnotationName))
                 functionName = calculateFunctionName(lexem);
             else
                 functionName = calculateFunctionName(lexem.substring(1+functionAnnotationName.length()));
@@ -165,7 +165,7 @@ public class Function extends AbstractFunction {
         for (int i = 0; i< arguments.size(); i++){
             Argument arg = arguments.get(i);
             if (errorFormat){
-                if (arg.getName() != null && !"".equals(arg.getName()))
+                if (!"".equals(arg.getName()))
                     argumentArray[i] = new StringBuilder(arg.getName()).append("=").append( arg.apply()).toString();
                 else
                     argumentArray[i] =  arg.apply();  
@@ -178,7 +178,7 @@ public class Function extends AbstractFunction {
 
     private String getNonEvaluateFunction(){
         StringBuilder result = new StringBuilder("@");
-        if (functionAnnotationName != null && !"".equals(functionAnnotationName)){
+        if (!"".equals(functionAnnotationName)){
             result.append(functionAnnotationName);
             result.append(".");
         }

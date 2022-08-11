@@ -114,7 +114,12 @@ public class RulesEngineTest {
        String result = engine.execute("#function.aFunction(@function())");
        assertEquals("@function.aFunction(foo) expected instead of : " + result,  "@function.aFunction(foo)",(result));
     }
-
+    @Test
+    public void testRuleEngineWithANonEvaluatedFunction()
+    {
+       String result = engine.execute("#function()");
+       assertEquals("@function() expected instead of : " + result,  "@function()",(result));
+    }
     @Test
     public void testRuleEngineWithThreadlocalValue()
     {
