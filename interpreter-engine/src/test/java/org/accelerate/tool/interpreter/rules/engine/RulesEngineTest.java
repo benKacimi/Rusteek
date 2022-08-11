@@ -103,6 +103,19 @@ public class RulesEngineTest {
     }
 
     @Test
+    public void testRuleEngineWithANonEvaluatedFunctionWithoutArgument()
+    {
+       String result = engine.execute("#function.aFunction( )");
+       assertEquals("@function.aFunction( ) expected instead of : " + result,  "@function.aFunction( )",(result));
+    }
+    @Test
+    public void testRuleEngineWithANonEvaluatedFunctionWithArgumentToEvaluate()
+    {
+       String result = engine.execute("#function.aFunction(@function())");
+       assertEquals("@function.aFunction(foo) expected instead of : " + result,  "@function.aFunction(foo)",(result));
+    }
+
+    @Test
     public void testRuleEngineWithThreadlocalValue()
     {
       Map<String, String> localProperties = new HashMap<String, String>();

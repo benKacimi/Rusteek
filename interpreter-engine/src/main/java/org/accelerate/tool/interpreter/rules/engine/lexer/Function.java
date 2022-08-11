@@ -137,7 +137,6 @@ public class Function extends AbstractFunction {
             }
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                 | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
-            // TODO Auto-generated catch block
         }                                                                                                                                                                  
         return null;
     }
@@ -148,11 +147,15 @@ public class Function extends AbstractFunction {
         if (aMethod == null)
             return error();
         Object[] argumentArray = evalArguments(false);
-        try { 
-            return  (String)aMethod.invoke(rule,argumentArray);
-        }
-        catch (  IllegalArgumentException | IllegalAccessException | InvocationTargetException | ClassCastException  e) {
-            return error();
+        if (isEvaluated){
+            try { 
+                return  (String)aMethod.invoke(rule,argumentArray);
+            }
+            catch (  IllegalArgumentException | IllegalAccessException | InvocationTargetException | ClassCastException  e) {
+                return error();
+            }
+        } else {            
+            return getNonEvaluateFunction();
         }
     }
     private String[] evalArguments(boolean errorFormat){
@@ -172,7 +175,8 @@ public class Function extends AbstractFunction {
         }
         return argumentArray;
     }
-    private String error(){
+
+    private String getNonEvaluateFunction(){
         StringBuilder result = new StringBuilder("@");
         if (functionAnnotationName != null && !"".equals(functionAnnotationName)){
             result.append(functionAnnotationName);
@@ -187,5 +191,9 @@ public class Function extends AbstractFunction {
             result.append(String.join(",",argumentArray));
         result.append(")");
         return result.toString();
+    }
+
+    private String error(){
+       return getNonEvaluateFunction();
     }
 }
