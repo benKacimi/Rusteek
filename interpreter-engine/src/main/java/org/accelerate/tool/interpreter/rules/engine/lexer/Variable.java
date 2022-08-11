@@ -35,7 +35,7 @@ public class Variable implements INode{
     }
 
     protected static boolean checkKeyNameSyntax(final String keyName){
-        if (keyName == null || "".equals(keyName))
+        if ("".equals(keyName))
             return false;
         
         return (VARIABLE_SYNTAX_REGEX.matcher(keyName)).matches() ;

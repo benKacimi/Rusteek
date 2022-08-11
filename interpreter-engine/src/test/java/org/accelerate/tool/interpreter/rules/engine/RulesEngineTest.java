@@ -148,5 +148,12 @@ public class RulesEngineTest {
       assertEquals("bar expected instead of : " + result ,"bar",(result));
       ThreadContext.remove();
       assertNull(ThreadContext.getVariableValue("var1"));
+    } 
+    
+    @Test
+    public void testRuleEngineWithVariableWithoutValue()
+    {
+      String result = engine.execute("${ var2 }");
+      assertEquals("${var2} expected instead of : " + result ,"${var2}",(result));
     }   
 }
