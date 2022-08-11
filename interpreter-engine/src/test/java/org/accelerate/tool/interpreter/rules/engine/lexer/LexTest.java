@@ -3,6 +3,9 @@ package org.accelerate.tool.interpreter.rules.engine.lexer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import org.junit.Test;
 
 public class LexTest {
@@ -39,7 +42,7 @@ public class LexTest {
         Lexer lexer = new Lexer();
         Node root = lexer.lex(str);
         Function function = (Function)root.getChildren().get(0);
-        assertEquals(null,function.getArguments());
+        assertEquals(Collections.emptyList(),function.getArguments());
         assertEquals("function",(function.getFunctionName()));
         assertEquals("one chhild expected instead of  : " + root.getChildren().size(),  1 ,root.getChildren().size());
     }
@@ -50,7 +53,7 @@ public class LexTest {
         Lexer lexer = new Lexer();
         Node root = lexer.lex(str);
         Function function = (Function)root.getChildren().get(0);
-        assertEquals(null,function.getArguments());
+        assertEquals(Collections.emptyList(),function.getArguments());
         assertEquals("functionTest",(function.getFunctionName()));
         assertEquals("one chhild expected instead of  : " + root.getChildren().size(),  1 , root.getChildren().size());
     }

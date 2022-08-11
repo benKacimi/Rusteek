@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.accelerate.tool.interpreter.rules.IRule;
 import org.apache.commons.configuration2.Configuration; 
 import org.apache.commons.configuration2.builder.fluent.Configurations;
@@ -28,6 +31,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 public class Function extends AbstractFunction {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Function.class);
     private static final ApplicationContext ruleContainer ;
     static {
         try {
@@ -89,6 +93,7 @@ public class Function extends AbstractFunction {
                     function = ruleContainer.getBean(functionAnnotationName.trim());
                 functionNode.setFunctionClass(function.getClass().getName());
             }catch (NoSuchBeanDefinitionException e){
+                LOGGER.warn("No bean found for function {}",functionName);
             }
             return functionNode;
         }

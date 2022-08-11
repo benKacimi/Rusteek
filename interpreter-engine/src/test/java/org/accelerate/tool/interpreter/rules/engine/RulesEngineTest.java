@@ -98,15 +98,15 @@ public class RulesEngineTest {
     @Test
     public void testRuleEngineWithAFunctionThatDoesntReturnAString()
     {
-       String result = engine.execute("@function.functionWithWrongReturnType( )");
-       assertEquals("@functionWithWrongReturnType() expected instead of : " + result,  "@function.functionWithWrongReturnType( )",(result));
+       String result = engine.execute("@function.functionWithWrongReturnType()");
+       assertEquals("@functionWithWrongReturnType() expected instead of : " + result,  "@function.functionWithWrongReturnType()",(result));
     }
 
     @Test
     public void testRuleEngineWithANonEvaluatedFunctionWithoutArgument()
     {
        String result = engine.execute("#function.aFunction( )");
-       assertEquals("@function.aFunction( ) expected instead of : " + result,  "@function.aFunction( )",(result));
+       assertEquals("@function.aFunction() expected instead of : " + result,  "@function.aFunction()",(result));
     }
     @Test
     public void testRuleEngineWithANonEvaluatedFunctionWithArgumentToEvaluate()
