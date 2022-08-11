@@ -1,6 +1,7 @@
 package org.accelerate.tool.interpreter.rules.engine.lexer;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import lombok.experimental.FieldDefaults;
 @Setter
 public class Argument extends Node {
 
-    private String name;
+    private String name = "";
 
     protected static List<Argument> createArgumentList(final String strArguments){
         
@@ -23,7 +24,7 @@ public class Argument extends Node {
         List<Argument> argumentList = null;
 
         if ("".equals(arrArgument[0]))
-            return null;
+            return Collections.emptyList();
         for (String aArguments : arrArgument){
             Argument argumentResult = new Argument();
             String[] paramNames = aArguments.split("=");

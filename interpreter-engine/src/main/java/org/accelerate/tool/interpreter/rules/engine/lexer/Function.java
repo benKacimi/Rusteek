@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.accelerate.tool.interpreter.rules.IRule;
 import org.apache.commons.configuration2.Configuration; 
 import org.apache.commons.configuration2.builder.fluent.Configurations;
@@ -28,6 +31,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 public class Function extends AbstractFunction {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Function.class);
     private static final ApplicationContext ruleContainer ;
     static {
         try {
@@ -70,7 +74,7 @@ public class Function extends AbstractFunction {
             String functionAnnotationName = calculateAnnotationFunctionName(lexem);
             
             String functionName = "";
-            if (functionAnnotationName == null || "".equals(functionAnnotationName))
+            if ("".equals(functionAnnotationName))
                 functionName = calculateFunctionName(lexem);
             else
                 functionName = calculateFunctionName(lexem.substring(1+functionAnnotationName.length()));
@@ -83,12 +87,13 @@ public class Function extends AbstractFunction {
                 functionNode.setArguments(Argument.createArgumentList(functionParameter.trim()));
             try {
                 Object function =  null; 
-                if (functionAnnotationName == null || "".equals(functionAnnotationName))
+                if ("".equals(functionAnnotationName))
                     function = ruleContainer.getBean(functionName.trim());
                 else
                     function = ruleContainer.getBean(functionAnnotationName.trim());
                 functionNode.setFunctionClass(function.getClass().getName());
             }catch (NoSuchBeanDefinitionException e){
+                LOGGER.warn("No bean found for function {}",functionName);
             }
             return functionNode;
         }
@@ -106,7 +111,7 @@ public class Function extends AbstractFunction {
             closingParenthesisIndex > openingParenthesisIndex ){
             String functionAnnotationName = calculateAnnotationFunctionName(lexem);
             String functionName = "";
-            if (functionAnnotationName == null || "".equals(functionAnnotationName))
+            if ("".equals(functionAnnotationName))
                 functionName = calculateFunctionName(lexem);
             else
                 functionName = calculateFunctionName(lexem.substring(1+functionAnnotationName.length()));
@@ -137,7 +142,6 @@ public class Function extends AbstractFunction {
             }
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                 | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
-            // TODO Auto-generated catch block
         }                                                                                                                                                                  
         return null;
     }
@@ -148,11 +152,15 @@ public class Function extends AbstractFunction {
         if (aMethod == null)
             return error();
         Object[] argumentArray = evalArguments(false);
-        try { 
-            return  (String)aMethod.invoke(rule,argumentArray);
-        }
-        catch (  IllegalArgumentException | IllegalAccessException | InvocationTargetException | ClassCastException  e) {
-            return error();
+        if (isEvaluated){
+            try { 
+                return  (String)aMethod.invoke(rule,argumentArray);
+            }
+            catch (  IllegalArgumentException | IllegalAccessException | InvocationTargetException | ClassCastException  e) {
+                return error();
+            }
+        } else {            
+            return getNonEvaluateFunction();
         }
     }
     private String[] evalArguments(boolean errorFormat){
@@ -162,7 +170,7 @@ public class Function extends AbstractFunction {
         for (int i = 0; i< arguments.size(); i++){
             Argument arg = arguments.get(i);
             if (errorFormat){
-                if (arg.getName() != null && !"".equals(arg.getName()))
+                if (!"".equals(arg.getName()))
                     argumentArray[i] = new StringBuilder(arg.getName()).append("=").append( arg.apply()).toString();
                 else
                     argumentArray[i] =  arg.apply();  
@@ -172,9 +180,10 @@ public class Function extends AbstractFunction {
         }
         return argumentArray;
     }
-    private String error(){
+
+    private String getNonEvaluateFunction(){
         StringBuilder result = new StringBuilder("@");
-        if (functionAnnotationName != null && !"".equals(functionAnnotationName)){
+        if (!"".equals(functionAnnotationName)){
             result.append(functionAnnotationName);
             result.append(".");
         }
@@ -187,5 +196,9 @@ public class Function extends AbstractFunction {
             result.append(String.join(",",argumentArray));
         result.append(")");
         return result.toString();
+    }
+
+    private String error(){
+       return getNonEvaluateFunction();
     }
 }

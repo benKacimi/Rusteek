@@ -98,10 +98,28 @@ public class RulesEngineTest {
     @Test
     public void testRuleEngineWithAFunctionThatDoesntReturnAString()
     {
-       String result = engine.execute("@function.functionWithWrongReturnType( )");
-       assertEquals("@functionWithWrongReturnType() expected instead of : " + result,  "@function.functionWithWrongReturnType( )",(result));
+       String result = engine.execute("@function.functionWithWrongReturnType()");
+       assertEquals("@functionWithWrongReturnType() expected instead of : " + result,  "@function.functionWithWrongReturnType()",(result));
     }
 
+    @Test
+    public void testRuleEngineWithANonEvaluatedFunctionWithoutArgument()
+    {
+       String result = engine.execute("#function.aFunction( )");
+       assertEquals("@function.aFunction() expected instead of : " + result,  "@function.aFunction()",(result));
+    }
+    @Test
+    public void testRuleEngineWithANonEvaluatedFunctionWithArgumentToEvaluate()
+    {
+       String result = engine.execute("#function.aFunction(@function())");
+       assertEquals("@function.aFunction(foo) expected instead of : " + result,  "@function.aFunction(foo)",(result));
+    }
+    @Test
+    public void testRuleEngineWithANonEvaluatedFunction()
+    {
+       String result = engine.execute("#function()");
+       assertEquals("@function() expected instead of : " + result,  "@function()",(result));
+    }
     @Test
     public void testRuleEngineWithThreadlocalValue()
     {
@@ -130,5 +148,12 @@ public class RulesEngineTest {
       assertEquals("bar expected instead of : " + result ,"bar",(result));
       ThreadContext.remove();
       assertNull(ThreadContext.getVariableValue("var1"));
+    } 
+    
+    @Test
+    public void testRuleEngineWithVariableWithoutValue()
+    {
+      String result = engine.execute("${ var2 }");
+      assertEquals("${var2} expected instead of : " + result ,"${var2}",(result));
     }   
 }

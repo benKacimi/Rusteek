@@ -10,17 +10,17 @@ public abstract class AbstractFunction  implements INode {
 
     protected static String calculateAnnotationFunctionName(final String phrase) {
         if(phrase == null)
-            return null;
+            return "";
         int pointIndex = phrase.indexOf(".");
-        String calculatedClassName = null;
+        String calculatedClassName = "";
         if (pointIndex != -1){
             calculatedClassName = phrase.substring(1, pointIndex);
             if (null == calculatedClassName || "".equals(calculatedClassName))
-                return null;   
+                return "";   
             if (checkFunctionNameSyntax(calculatedClassName))
                 return calculatedClassName;
         }
-        return null;
+        return "";
     }
 
     protected static String calculateFunctionName(final String phrase){

@@ -40,4 +40,10 @@ public class FunctionCalculateFunctionNameTest {
         String functionName = Function.calculateFunctionName(str);
         assertEquals(null , functionName);
     }
+    @Test
+    public void testIsValideFunctioWithNullParameteer()
+    {
+        boolean isValid = Function.isAValideFunction(null);
+        assertEquals(false , isValid);
+    }
 }
