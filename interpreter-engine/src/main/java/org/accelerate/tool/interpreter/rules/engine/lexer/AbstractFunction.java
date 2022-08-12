@@ -15,8 +15,6 @@ public abstract class AbstractFunction  implements INode {
         String calculatedClassName = "";
         if (pointIndex != -1){
             calculatedClassName = phrase.substring(1, pointIndex);
-            if (null == calculatedClassName || "".equals(calculatedClassName))
-                return "";   
             if (checkFunctionNameSyntax(calculatedClassName))
                 return calculatedClassName;
         }
@@ -25,13 +23,13 @@ public abstract class AbstractFunction  implements INode {
 
     protected static String calculateFunctionName(final String phrase){
         if(phrase == null)
-            return null;
+            return "";
         
         int openingParenthesisIndex = phrase.indexOf("(");
-        String calculatedName = null;
+        String calculatedName = "";
         if (openingParenthesisIndex != -1){
             calculatedName= phrase.substring(1, openingParenthesisIndex);
-            if (null == calculatedName || "".equals(calculatedName))
+            if ("".equals(calculatedName))
                 return null;
             else 
                 calculatedName = calculatedName.trim();
@@ -40,7 +38,7 @@ public abstract class AbstractFunction  implements INode {
         }
         return null;
     }
-    private static boolean checkFunctionNameSyntax(final String functionName){
+    protected static boolean checkFunctionNameSyntax(final String functionName){
         if (functionName == null || "".equals(functionName))
             return false;
         return  (FUNCTION_NAME_REGEX.matcher(functionName)).matches() ;

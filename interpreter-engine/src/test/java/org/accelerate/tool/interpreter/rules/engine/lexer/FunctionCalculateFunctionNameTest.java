@@ -17,7 +17,7 @@ public class FunctionCalculateFunctionNameTest {
     public void testCalculateFunctionNameWithNull()
     {
         String parameter = Function.calculateFunctionName(null);
-        assertEquals(null , parameter);
+        assertEquals("" , parameter);
     }
     @Test
     public void testCalculateFunctionNameWithEmptyName()
@@ -44,6 +44,59 @@ public class FunctionCalculateFunctionNameTest {
     public void testIsValideFunctioWithNullParameteer()
     {
         boolean isValid = Function.isAValideFunction(null);
+        assertEquals(false , isValid);
+    }
+
+    @Test
+    public void testIsValideFunctioWithEmptyParameteer()
+    {
+        boolean isValid = Function.isAValideFunction("");
+        assertEquals(false , isValid);
+    }
+    @Test
+    public void testIsValideFunctioWithInvalidFunctionName()
+    {
+        boolean isValid = Function.isAValideFunction("@fu<nc()");
+        assertEquals(false , isValid);
+    }
+    @Test
+    public void testIsValideFunctioWithValidFunctionName()
+    {
+        boolean isValid = Function.isAValideFunction("@func()");
+        assertEquals(true , isValid);
+    }
+    @Test
+    public void testIsValideFunctioWithValidFunctionNameWithParameter()
+    {
+        boolean isValid = Function.isAValideFunction("@func(parameter)");
+        assertEquals(true , isValid);
+    }
+    @Test
+    public void testIsValideFunctioWithValidFunctionNameWithParameterAndAnnotation()
+    {
+        boolean isValid = Function.isAValideFunction("@func(parameter)");
+        assertEquals(true , isValid);
+    }
+    @Test
+    public void testIsValideFunctioWithValidFunctionNameWithParameterAndAnnotationAndSpace()
+    {
+        boolean isValid = Function.isAValideFunction("@func(parameter) ");
+        assertEquals(true , isValid);
+    }
+    @Test
+    public void testIsValideFunctioWithValidFunctionNameWithParameterAndAnnotationAndSpaceAndSpace()
+    {
+        boolean isValid = Function.isAValideFunction("@func(parameter)  ");
+        assertEquals(true , isValid);
+    }  
+    @Test
+    public void testCheckFunctionNameSyntaxWhitNull(){
+        boolean isValid = Function.checkFunctionNameSyntax(null);
+        assertEquals(false , isValid);
+    }
+    @Test
+    public void testCheckFunctionNameSyntaxWhitEmpty(){
+        boolean isValid = Function.checkFunctionNameSyntax("");
         assertEquals(false , isValid);
     }
 }
