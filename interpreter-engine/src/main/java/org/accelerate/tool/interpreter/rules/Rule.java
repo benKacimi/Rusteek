@@ -1,4 +1,4 @@
 package org.accelerate.tool.interpreter.rules;
 
-public interface IRule {
+public interface Rule {
 }

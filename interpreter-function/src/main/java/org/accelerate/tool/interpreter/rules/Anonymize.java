@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 @Component("anonymize")
 
-public class Anonymize implements IRule{
+public class Anonymize implements Rule{
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(Anonymize.class);
 

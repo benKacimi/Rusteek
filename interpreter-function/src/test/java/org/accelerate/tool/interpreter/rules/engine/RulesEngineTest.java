@@ -33,8 +33,9 @@ public class RulesEngineTest {
       localProperties.put("var2","bar");
       
       ThreadContext.setThreadDataMap(localProperties);
-      String result = engine.execute("@encrypt.AESEncrypt($customerName)");
-      assertNotEquals("@encrypt.AESEncrypt($customerName)",(result));
+      String result = engine.execute("@hash.SHA3256(${customerName})");
+
+      assertEquals("9907ee8f699afdad889273188ba392901fc1d6f8e7e9d11abdd9b9e2fa088fc0",(result));
       ThreadContext.remove();
       assertNull(ThreadContext.getVariableValue("customerName"));
     }

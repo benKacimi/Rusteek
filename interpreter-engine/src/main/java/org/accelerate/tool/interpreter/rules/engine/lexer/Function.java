@@ -12,7 +12,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.accelerate.tool.interpreter.rules.IRule;
+import org.accelerate.tool.interpreter.rules.Rule;
 import org.apache.commons.configuration2.Configuration; 
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
@@ -67,7 +67,7 @@ public class Function extends AbstractFunction {
     private String  functionAnnotationName;
     private List<Argument> arguments;
     private String parameter;
-    private IRule rule;
+    private Rule rule;
 
     protected static Function createInstance(final String lexem){
         if (isAValideFunction(lexem) ){
@@ -128,7 +128,7 @@ public class Function extends AbstractFunction {
             return null;
 
         try {
-            rule = (IRule)Class.forName (functionClass).getConstructor().newInstance();
+            rule = (Rule)Class.forName (functionClass).getConstructor().newInstance();
             Method[] methods = rule.getClass().getMethods();
             for(Method aMethod : methods) {
                 if (aMethod.isAnnotationPresent(org.accelerate.tool.interpreter.rules.Function.class)){
