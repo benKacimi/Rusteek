@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component("hash")
-public class Hash implements IRule{
+public class Hash implements Rule{
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(Hash.class);
 
