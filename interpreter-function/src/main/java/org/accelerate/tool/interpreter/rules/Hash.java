@@ -15,7 +15,10 @@ public class Hash implements Rule{
     protected static final Logger LOGGER = LoggerFactory.getLogger(Hash.class);
 
     @Function (name="SHA3256")
-    public  String encrypt(String something) {
+    public  String hash(String something) {
+        if("".equals(something) || something == null)
+            return "";
+
         MessageDigest digest;
         try {
             digest = MessageDigest.getInstance("SHA3-256");
