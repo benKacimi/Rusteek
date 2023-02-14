@@ -142,6 +142,7 @@ public class Function extends AbstractFunction {
             }
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                 | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
+                    LOGGER.error(e.getMessage());
         }                                                                                                                                                                  
         return null;
     }
