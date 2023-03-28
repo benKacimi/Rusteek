@@ -4,7 +4,7 @@ Provide an engine the analyse and execute a simple langage.
 
 Exemple : @aFunction(${aVar})aTexte
 In this exemple the analysze (tockenizer or lexer) that the instruction is composed in 2 parts : 
-- a function named aFunction that take on parameter. The parameter in this case is a variable named aVar
+- a function named aFunction that take one parameter. The parameter in this case is a variable named aVar
 - a literal (aText
 
 ### Required configuration ###
