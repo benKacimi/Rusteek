@@ -28,7 +28,7 @@ public abstract class AbstractFunction  implements INode {
         int openingParenthesisIndex = phrase.indexOf("(");
         String calculatedName = "";
         if (openingParenthesisIndex != -1){
-            calculatedName= phrase.substring(1, openingParenthesisIndex);
+            calculatedName = phrase.substring(1, openingParenthesisIndex);
             if ("".equals(calculatedName))
                 return null;
             else 
