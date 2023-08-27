@@ -63,7 +63,7 @@ public class Function extends AbstractFunction {
     }
     private String  functionName;
     private boolean isEvaluated;
-    private String  functionClass;
+    //private String  functionClass;
     private String  functionAnnotationName;
     private List<Argument> arguments;
     private String parameter;
@@ -86,12 +86,12 @@ public class Function extends AbstractFunction {
             if (functionParameter != null)
                 functionNode.setArguments(Argument.createArgumentList(functionParameter.trim()));
             try {
-                Object function =  null; 
+                //Object function =  null; 
                 if ("".equals(functionAnnotationName))
-                    function = ruleContainer.getBean(functionName.trim());
+                    functionNode.rule = (Rule)ruleContainer.getBean(functionName.trim());
                 else
-                    function = ruleContainer.getBean(functionAnnotationName.trim());
-                functionNode.setFunctionClass(function.getClass().getName());
+                    functionNode.rule = (Rule)ruleContainer.getBean(functionAnnotationName.trim());
+               // functionNode.setFunctionClass(function.getClass().getName());
             }catch (NoSuchBeanDefinitionException e){
                 LOGGER.warn("No bean found for function {}",functionName);
             }
@@ -124,11 +124,11 @@ public class Function extends AbstractFunction {
     }
 
     private Method seekMethod(){
-        if (functionClass == null || "".equals(functionClass))
+        if (rule == null)
             return null;
 
         try {
-            rule = (Rule)Class.forName (functionClass).getConstructor().newInstance();
+            //rule = (Rule)Class.forName (functionClass).getConstructor().newInstance();
             Method[] methods = rule.getClass().getMethods();
             for(Method aMethod : methods) {
                 if (aMethod.isAnnotationPresent(org.accelerate.tool.interpreter.rules.Function.class)){
@@ -140,8 +140,8 @@ public class Function extends AbstractFunction {
                     }
                 }  
             }
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-                | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
+        } catch ( IllegalArgumentException | 
+                  SecurityException  e) {
                     LOGGER.error(e.getMessage());
         }                                                                                                                                                                  
         return null;
