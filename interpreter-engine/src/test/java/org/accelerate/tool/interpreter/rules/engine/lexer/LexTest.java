@@ -3,7 +3,6 @@ package org.accelerate.tool.interpreter.rules.engine.lexer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import java.util.Collection;
 import java.util.Collections;
 
 import org.junit.Test;
@@ -111,7 +110,7 @@ public class LexTest {
         assertEquals("function",(function.getFunctionName()));
         assertEquals( "Rules Class error : "+ function.getFunctionName(),
                     "org.accelerate.tool.interpreter.rules.FunctionRuleForTest",
-                    (function.getFunctionClass()));
+                    (function.getRule().getClass().getName()));
     }
     @Test
     public void testLexASimpleFunctionWithEmailAdressAndFunctionWithANumberInFunctionName()
@@ -201,7 +200,7 @@ public class LexTest {
         assertEquals("aVariable",(aVar.getKeyName()));
         Literal literal = (Literal)root.getChildren().get(1);
         assertEquals("literal should be .bar instead of : " + literal.getValue(), ".bar",(literal.getValue()));
-        assertNotEquals(null,function.getFunctionClass());
+        assertNotEquals(null,function.getRule().getClass().getName());
     }
     @Test
     public void testLexASimpleFunctionWithEqual()
@@ -216,6 +215,6 @@ public class LexTest {
         assertEquals("aVariable",(aVar.getKeyName()));
         Literal literal = (Literal)root.getChildren().get(1);
         assertEquals("literal should be .bar instead of : " + literal.getValue(), ".bar",(literal.getValue()));
-        assertNotEquals( null,function.getFunctionClass());
+        assertNotEquals( null,function.getRule().getClass().getName());
     }
 }
