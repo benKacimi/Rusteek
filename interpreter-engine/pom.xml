@@ -30,7 +30,7 @@
 			<id>benkacimi</id>
 			<name>Ben Amar KACIMIr</name>
 			<email>ben.kacimi@gmail.com</email>
-			<url></url>
+			<url/>
 			<timezone>+1</timezone>
 		</developer>
 	</developers>
@@ -45,7 +45,7 @@
         <lombok.version>1.18.16</lombok.version>
         <spring-context.version>5.3.21</spring-context.version>
         <junit.version>4.13.1</junit.version>
-        <slf4j-api.version>1.7.26</slf4j-api.version>
+        <slf4j-api.version>1.7.36</slf4j-api.version>
       </properties>
 
     <dependencies>
