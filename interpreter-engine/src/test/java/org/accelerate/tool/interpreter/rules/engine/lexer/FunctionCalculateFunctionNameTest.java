@@ -10,93 +10,105 @@ public class FunctionCalculateFunctionNameTest {
     public void testCalculateFunctionNameWithBlankParemeter()
     {
         String str = "";
-        String parameter = Function.calculateFunctionName(str);
-        assertEquals(null , parameter);
+        String parameter = UnEvaluatedFunction.calculateFunctionName(str);
+        assertEquals("" , parameter);
     }
     @Test
     public void testCalculateFunctionNameWithNull()
     {
-        String parameter = Function.calculateFunctionName(null);
+        String parameter = UnEvaluatedFunction.calculateFunctionName(null);
         assertEquals("" , parameter);
     }
     @Test
     public void testCalculateFunctionNameWithEmptyName()
     {
         String str = "@()";
-        String parameter = Function.calculateFunctionName(str);
-        assertEquals(null , parameter);
+        String parameter = EvaluatedFunction.calculateFunctionName(str);
+        assertEquals("" , parameter);
     }
     @Test
     public void testCalculateFunctionNameWithSimpleFunctionName()
     {
         String str = "@func()";
-        String functionName = Function.calculateFunctionName(str);
+        String functionName = UnEvaluatedFunction.calculateFunctionName(str);
         assertEquals("func",(functionName));
     }
     @Test
     public void testCalculateFunctionNameWithInvalidFunctionName()
     {
         String str = "@fu<nc()";
-        String functionName = Function.calculateFunctionName(str);
-        assertEquals(null , functionName);
+        String functionName = EvaluatedFunction.calculateFunctionName(str);
+        assertEquals("" , functionName);
     }
     @Test
     public void testIsValideFunctioWithNullParameteer()
     {
-        boolean isValid = Function.isAValideFunction(null);
+        boolean isValid = UnEvaluatedFunction.isAValidFunction(null);
         assertEquals(false , isValid);
     }
 
     @Test
     public void testIsValideFunctioWithEmptyParameteer()
     {
-        boolean isValid = Function.isAValideFunction("");
+        boolean isValid = UnEvaluatedFunction.isAValidFunction("");
         assertEquals(false , isValid);
     }
     @Test
     public void testIsValideFunctioWithInvalidFunctionName()
     {
-        boolean isValid = Function.isAValideFunction("@fu<nc()");
+        boolean isValid = UnEvaluatedFunction.isAValidFunction("@fu<nc()");
         assertEquals(false , isValid);
     }
     @Test
     public void testIsValideFunctioWithValidFunctionName()
     {
-        boolean isValid = Function.isAValideFunction("@func()");
+        boolean isValid = UnEvaluatedFunction.isAValidFunction("@func()");
         assertEquals(true , isValid);
     }
     @Test
     public void testIsValideFunctioWithValidFunctionNameWithParameter()
     {
-        boolean isValid = Function.isAValideFunction("@func(parameter)");
+        boolean isValid = UnEvaluatedFunction.isAValidFunction("@func(parameter)");
         assertEquals(true , isValid);
     }
     @Test
     public void testIsValideFunctioWithValidFunctionNameWithParameterAndAnnotation()
     {
-        boolean isValid = Function.isAValideFunction("@func(parameter)");
+        boolean isValid = UnEvaluatedFunction.isAValidFunction("@func(parameter)");
         assertEquals(true , isValid);
     }
     @Test
     public void testIsValideFunctioWithValidFunctionNameWithParameterAndAnnotationAndSpace()
     {
-        boolean isValid = Function.isAValideFunction("@func(parameter) ");
+        boolean isValid = UnEvaluatedFunction.isAValidFunction("@func(parameter) ");
         assertEquals(true , isValid);
     }
     @Test
     public void testIsValideFunctioWithValidFunctionNameWithParameterAndAnnotationAndSpaceAndSpace()
     {
-        boolean isValid = Function.isAValideFunction("@func(parameter)  ");
+        boolean isValid = UnEvaluatedFunction.isAValidFunction("@func(parameter)  ");
+        assertEquals(true , isValid);
+    }  
+    @Test
+    public void testIsValideFunctioWithInValidFunctionNameWithParameter()
+    {
+        boolean isValid = EvaluatedFunction.isAValidFunction("@ (parameter)");
+        assertEquals(false , isValid);
+    }  
+     @Test
+    public void testIsValideFunctioWithAValidFunctionNameWithBlankParameter()
+    {
+        boolean isValid = EvaluatedFunction.isAValidFunction("@func(   )");
         assertEquals(true , isValid);
     }  
     @Test
     public void testCheckFunctionNameSyntaxWhitNull(){
-        boolean isValid = Function.checkFunctionNameSyntax(null);
+        boolean isValid = UnEvaluatedFunction.checkFunctionNameSyntax(null);
         assertEquals(false , isValid);
     }
     @Test
     public void testCheckFunctionNameSyntaxWhitEmpty(){
-        boolean isValid = Function.checkFunctionNameSyntax("");
+        boolean isValid = UnEvaluatedFunction.checkFunctionNameSyntax("");
         assertEquals(false , isValid);
     }
 }

@@ -37,16 +37,16 @@
 	</developers>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <lombok.version>1.18.16</lombok.version>
-        <spring-context.version>5.3.21</spring-context.version>
+        <lombok.version>1.18.30</lombok.version>
+        <spring-context.version>6.1.1</spring-context.version>
         <junit.version>4.13.1</junit.version>
-        <slf4j-api.version>1.7.26</slf4j-api.version>
+        <slf4j-api.version>1.7.36</slf4j-api.version>
     </properties>
 
     <dependencies>
@@ -61,7 +61,6 @@
             <version>${spring-context.version}</version>
             <scope>compile</scope>
         </dependency>
-       
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -75,24 +74,4 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.pitest</groupId>
-                <artifactId>pitest-maven</artifactId>
-                <version>1.9.4</version>
-                <executions>
-                    <execution>
-                        <id>pit-report</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>mutationCoverage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-             </plugin>
-        </plugins>
-    </build>
-   
-
 </project>

@@ -21,7 +21,7 @@ public class Anonymize implements Rule{
         String uuidString = cache.get(uuidToAnonymize);
         if (uuidString == null){
             uuidString = generateUUID();
-            cache.put(uuidToAnonymize, uuidString);
+            cache.putIfAbsent(uuidToAnonymize, uuidString);
         }
         else
             LOGGER.debug("{} - anonymiseUUID - cache key found",this.getClass());

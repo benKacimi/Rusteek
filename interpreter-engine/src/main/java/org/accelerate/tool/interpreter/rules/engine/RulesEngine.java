@@ -1,7 +1,7 @@
 package org.accelerate.tool.interpreter.rules.engine;
 
 import org.accelerate.tool.interpreter.rules.engine.lexer.Lexer;
-import org.accelerate.tool.interpreter.rules.engine.lexer.Node;
+import org.accelerate.tool.interpreter.rules.engine.lexer.RootNode;
 
 public class RulesEngine {
     
@@ -12,7 +12,7 @@ public class RulesEngine {
         if (instructionLine == null || "".equals(instructionLine))
             return instructionLine;
         
-        Node root = tokenizer.lex(instructionLine);
+        RootNode root = tokenizer.lex(instructionLine);
         return root.apply();
     }
 }

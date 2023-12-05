@@ -12,7 +12,7 @@ public class FunctionCalculateParameterTest {
     {
         String str = "";
         String parameter = Argument.calculateFunctionParameter(str);
-        assertEquals(null , parameter);
+        assertEquals("" , parameter);
     }
     @Test
     public void testCalculateParamerterWitMultipleBackspaceParameter()
@@ -32,7 +32,7 @@ public class FunctionCalculateParameterTest {
     public void testCalculateParamerterWitNullParemeter()
     {
         String parameter = Argument.calculateFunctionParameter(null);
-        assertEquals(null , parameter);
+        assertEquals("" , parameter);
     }
     @Test
     public void testCalculateParamerterWithNoArgument()
@@ -88,7 +88,7 @@ public class FunctionCalculateParameterTest {
     {
         String str = ")func(param()";
         String parameter = Argument.calculateFunctionParameter(str);
-        assertEquals(null,parameter);
+        assertEquals("",parameter);
     }
 
     @Test
@@ -97,5 +97,12 @@ public class FunctionCalculateParameterTest {
         String str = "@function(arg1=${foo})";
         String parameter = Argument.calculateFunctionParameter(str);
         assertEquals("arg1=${foo}",(parameter) );
+    }
+    @Test
+    public void testCalculateParamerterWitoutFunctionName()
+    {
+        String str = "@(param)";
+        String parameter = Argument.calculateFunctionParameter(str);
+        assertEquals("param",parameter);
     }
 }
