@@ -8,7 +8,7 @@ In this exemple the analysze (tockenizer or lexer) that the instruction is compo
 - a literal (aText
 
 ### Required configuration ###
-* JDK 11
+* JDK 21
 * Maven 3.6.3
 * Git
 
@@ -18,7 +18,7 @@ In this exemple the analysze (tockenizer or lexer) that the instruction is compo
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=benKacimi_function-engine&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=benKacimi_function-engine)
 
 ### Technologies ####
-* Language programming: Java 11
+* Language programming: Java 21
 * UnitTests: [JUnit](https://junit.org/junit5/)
 * Code generation: [Lombok](https://projectlombok.org)
 * CI : [Travis CI](https://travis-ci.com)
