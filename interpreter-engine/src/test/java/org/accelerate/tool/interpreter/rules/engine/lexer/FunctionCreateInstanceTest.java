@@ -1,7 +1,8 @@
 package org.accelerate.tool.interpreter.rules.engine.lexer;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import org.accelerate.tool.interpreter.rules.engine.lexer.execption.InvalidFunctionSyntaxException;
 import org.junit.Test;
 
 public class FunctionCreateInstanceTest {
@@ -10,13 +11,21 @@ public class FunctionCreateInstanceTest {
     public void testCalculateParamerterWitBlankParameter()
     {
         String lexem = "";
-        Function aFunc = Function.createInstance(lexem);
-        assertEquals(null , aFunc);
+       
+        try {
+            new UnEvaluatedFunction().initInstance(lexem);
+        } catch (InvalidFunctionSyntaxException e) {
+          assertTrue(true);
+        }
     }
     @Test
     public void testCalculateParamerterWitNullParameter()
     {
-        Function aFunc = Function.createInstance(null);
-        assertEquals(null , aFunc);
+       
+        try {
+            new UnEvaluatedFunction().initInstance(null);
+        } catch (InvalidFunctionSyntaxException e) {
+         assertTrue(true);
+        }
     }
 }

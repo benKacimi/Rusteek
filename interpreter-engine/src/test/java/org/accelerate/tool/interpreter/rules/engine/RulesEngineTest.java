@@ -66,7 +66,7 @@ public class RulesEngineTest {
     public void testRuleEngineWithAFunctionThatDoesntExistWithParameterAndEqualCaratere()
     {
        String result = engine.execute("@nonExistentFunction( = @function())");
-       assertEquals("@nonExistentFunction(=foo) expected instead of : " + result,  "@nonExistentFunction(= foo)",result);
+       assertEquals("@nonExistentFunction(=foo) expected instead of : " + result,  "@nonExistentFunction(=foo)",result);
     }
     @Test
     public void testRuleEngineWithAFunctionThatDoesntExistWithAnExistingClass()

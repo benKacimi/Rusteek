@@ -13,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 @Setter
-public class Argument extends Node {
+public class Argument extends RootNode {
 
     private String name = "";
 
@@ -41,8 +41,8 @@ public class Argument extends Node {
     }
 
     protected static String calculateFunctionParameter(final String phrase){
-        if (phrase == null)
-            return null;
+        if (phrase == null || phrase.isEmpty())
+            return "";
         
         int openingParenthesisIndex = phrase.indexOf("(");
         int parenthesisBalance = -1;
@@ -57,7 +57,7 @@ public class Argument extends Node {
                 parenthesisBalance++;
             } else if (phrase.charAt(i) == ')'){
                 if (!initCount)
-                    return null;
+                    return "";
                 parenthesisBalance--;
                 if (parenthesisBalance == 0)
                     return (phrase.substring(openingParenthesisIndex+1,i));

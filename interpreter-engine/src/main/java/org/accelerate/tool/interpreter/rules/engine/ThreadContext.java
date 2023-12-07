@@ -7,6 +7,7 @@ public class ThreadContext {
 
     private ThreadContext() {
     }
+    
     private static ThreadLocal<Map<String,String>> threadDataProperties = new ThreadLocal<Map<String, String>>(){
         @Override public Map<String,String> initialValue() {
             return new HashMap<>();

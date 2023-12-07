@@ -11,8 +11,8 @@ public class  MultipleArgumentsFunctionTest {
     {
         String str = "@function(arg1=foo)";
         Lexer lexer = new Lexer();
-        Node root = lexer.lex(str);
-        Function function = (Function)root.getChildren().get(0);
+        RootNode root = lexer.lex(str);
+        EvaluatedFunction function = (EvaluatedFunction)root.getChildren().get(0);
         assertEquals("function",(function.getFunctionName()));
         Argument arg = function.getArguments().get(0);
         Literal literal1 =(Literal)arg.getChildren().get(0);
@@ -25,8 +25,8 @@ public class  MultipleArgumentsFunctionTest {
     {
         String str = " @function  (  arg1 =foo  , arg2= bar)";
         Lexer lexer = new Lexer();
-        Node root = lexer.lex(str);
-        Function function = (Function)root.getChildren().get(1);
+        RootNode root = lexer.lex(str);
+        EvaluatedFunction function = (EvaluatedFunction)root.getChildren().get(1);
         assertEquals("function",(function.getFunctionName()));
         
         Argument arg1 = function.getArguments().get(0);
@@ -44,8 +44,8 @@ public class  MultipleArgumentsFunctionTest {
     {
         String str = "@function(arg1=${foo}.bar)";
         Lexer lexer = new Lexer();
-        Node root = lexer.lex(str);
-        Function function = (Function)root.getChildren().get(0);
+        RootNode root = lexer.lex(str);
+        EvaluatedFunction function = (EvaluatedFunction)root.getChildren().get(0);
         assertEquals("function",(function.getFunctionName()));
         
         Argument arg = function.getArguments().get(0);
