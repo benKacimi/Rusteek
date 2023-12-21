@@ -8,11 +8,9 @@ public class ThreadContext {
     private ThreadContext() {
     }
     
-    private static ThreadLocal<Map<String,String>> threadDataProperties = new ThreadLocal<Map<String, String>>(){
-        @Override public Map<String,String> initialValue() {
-            return new HashMap<>();
-        }
-    };
+    
+    private static ThreadLocal<Map<String,String>> threadDataProperties = ThreadLocal.withInitial(HashMap::new);
+
     
     public static void setThreadDataMap(final Map<String, String> properties){
         threadDataProperties.set(properties);

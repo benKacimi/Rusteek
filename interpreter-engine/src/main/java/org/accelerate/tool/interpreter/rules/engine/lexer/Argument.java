@@ -45,24 +45,19 @@ public class Argument extends RootNode {
             return "";
         
         int openingParenthesisIndex = phrase.indexOf("(");
-        int parenthesisBalance = -1;
-        boolean initCount = false;
-
-        for(int i = 0 ; i < phrase.length() && parenthesisBalance != 0; i++) {
+        int parenthesisBalance = 0;
+        if (openingParenthesisIndex == -1)  {
+            return "";
+        }
+        for(int i = openingParenthesisIndex ; i < phrase.length(); i++) {
             if (phrase.charAt(i) == '(') {
-                if (!initCount){
-                    parenthesisBalance = 0;
-                    initCount = true;
-                }
                 parenthesisBalance++;
             } else if (phrase.charAt(i) == ')'){
-                if (!initCount)
-                    return "";
                 parenthesisBalance--;
                 if (parenthesisBalance == 0)
                     return (phrase.substring(openingParenthesisIndex+1,i));
             }
         }
-        return null;
+        return "";
     }
 }
