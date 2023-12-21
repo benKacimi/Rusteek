@@ -19,14 +19,14 @@ public class FunctionCalculateParameterTest {
     {
         String str = "   ";
         String parameter = Argument.calculateFunctionParameter(str);
-        assertEquals(null , parameter);
+        assertEquals("" , parameter);
     }
     @Test
     public void testCalculateParamerterWitBackspaceParameter()
     {
         String str = " ";
         String parameter = Argument.calculateFunctionParameter(str);
-        assertEquals(null , parameter);
+        assertEquals("" , parameter);
     }
     @Test
     public void testCalculateParamerterWitNullParemeter()
@@ -81,7 +81,7 @@ public class FunctionCalculateParameterTest {
     {
         String str = "func(param()";
         String parameter = Argument.calculateFunctionParameter(str);
-        assertEquals(null,parameter);
+        assertEquals("",parameter);
     }
     @Test
     public void testCalculateParamerterWithUnbalancedParenthesis2()
