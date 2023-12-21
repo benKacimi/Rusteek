@@ -86,19 +86,15 @@ public class EvaluatedFunction extends Function{
 
         Method[] methods = rule.getClass().getMethods();
         for (Method ruleMethod : methods) {
-            if (ruleMethod.isAnnotationPresent(org.accelerate.tool.interpreter.rules.Function.class)) {
-                Annotation[] annotations = ruleMethod.getAnnotations();
-                for (Annotation annotation : annotations) {
-                    if (annotation instanceof org.accelerate.tool.interpreter.rules.Function) {
-                        org.accelerate.tool.interpreter.rules.Function functionAnnotation = (org.accelerate.tool.interpreter.rules.Function) annotation;
-                        if (getFunctionName().equals(functionAnnotation.name()) || getFunctionName().equals(ruleMethod.getName())) {
-                            return ruleMethod;
-                        }
+            Annotation[] annotations = ruleMethod.getAnnotations();
+            for (Annotation annotation : annotations) {
+                if (annotation instanceof org.accelerate.tool.interpreter.rules.Function) {
+                    org.accelerate.tool.interpreter.rules.Function functionAnnotation = (org.accelerate.tool.interpreter.rules.Function) annotation;                        if (getFunctionName().equals(functionAnnotation.name()) || getFunctionName().equals(ruleMethod.getName())) {
+                           return ruleMethod;
                     }
                 }
             }
         }
-        
         return null;
     }
 
