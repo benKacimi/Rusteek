@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.accelerate.tool.interpreter.rules.engine.lexer.execption.InvalidLeafSyntaxException;
 
-public class Lexer {
+public final class Lexer {
 
     private static Map<String,RootNode> compilationCache = new ConcurrentHashMap<>();
 

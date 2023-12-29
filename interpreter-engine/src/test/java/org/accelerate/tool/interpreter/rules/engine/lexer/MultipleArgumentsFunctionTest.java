@@ -1,13 +1,13 @@
 package org.accelerate.tool.interpreter.rules.engine.lexer;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class  MultipleArgumentsFunctionTest {
+class  MultipleArgumentsFunctionTest {
 
     @Test   
-    public void testOneLiteralArgumentFuntion()
+    void testOneLiteralArgumentFuntion()
     {
         String str = "@function(arg1=foo)";
         Lexer lexer = new Lexer();
@@ -21,7 +21,7 @@ public class  MultipleArgumentsFunctionTest {
     }     
     
     @Test   
-    public void testTwoLiteralArgumentFuntion()
+    void testTwoLiteralArgumentFuntion()
     {
         String str = " @function  (  arg1 =foo  , arg2= bar)";
         Lexer lexer = new Lexer();
@@ -40,7 +40,7 @@ public class  MultipleArgumentsFunctionTest {
         assertEquals("arg2",(arg2.getName()));
     }     
     @Test   
-    public void testOneVarialbelArgumentFuntion()
+    void testOneVarialbelArgumentFuntion()
     {
         String str = "@function(arg1=${foo}.bar)";
         Lexer lexer = new Lexer();
@@ -54,5 +54,4 @@ public class  MultipleArgumentsFunctionTest {
         Literal literal =(Literal)arg.getChildren().get(1);
         assertEquals(".bar",(literal.getValue()));
     }     
-    
 }

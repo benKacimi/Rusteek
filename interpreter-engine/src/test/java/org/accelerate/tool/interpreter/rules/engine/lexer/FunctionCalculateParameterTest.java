@@ -1,108 +1,46 @@
 package org.accelerate.tool.interpreter.rules.engine.lexer;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
-
-public class FunctionCalculateParameterTest {
+class FunctionCalculateParameterTest {
     
-    @Test
-    public void testCalculateParamerterWitBlankParemeter()
+    @ParameterizedTest
+    @ValueSource(strings = {"", "   ", " ","@func()", "func(param()"})
+    void testCalculateParamerterWitBlankParemeterOrWithInvalidParemeter(String str)
     {
-        String str = "";
         String parameter = Argument.calculateFunctionParameter(str);
         assertEquals("" , parameter);
     }
     @Test
-    public void testCalculateParamerterWitMultipleBackspaceParameter()
-    {
-        String str = "   ";
-        String parameter = Argument.calculateFunctionParameter(str);
-        assertEquals("" , parameter);
-    }
-    @Test
-    public void testCalculateParamerterWitBackspaceParameter()
-    {
-        String str = " ";
-        String parameter = Argument.calculateFunctionParameter(str);
-        assertEquals("" , parameter);
-    }
-    @Test
-    public void testCalculateParamerterWitNullParemeter()
+    void testCalculateParamerterWitNullParemeter()
     {
         String parameter = Argument.calculateFunctionParameter(null);
         assertEquals("" , parameter);
     }
     @Test
-    public void testCalculateParamerterWithNoArgument()
-    {
-        String str = "@func()";
-        String parameter = Argument.calculateFunctionParameter(str);
-        assertEquals("",(parameter) );
-    }
-    @Test
-    public void testCalculateParamerterWithBackspaceArgument()
+    void testCalculateParamerterWithBackspaceArgument()
     {
         String str = "@func( )";
         String parameter = Argument.calculateFunctionParameter(str);
-        assertEquals("One backspace caractere expected instead of : " + parameter," ",(parameter) );
+        assertEquals(" ",parameter,"One backspace caractere expected instead of : " + parameter);
     }
-    @Test
-    public void testCalculateParamerterWithSimpleArguments()
+    @ParameterizedTest
+    @CsvSource({
+        "@func(param=true), param=true",
+        "@func(param=true@func2()), param=true@func2()",
+        "(a)(b)(c), a",
+        "((foo(bar)john(do)))()func(), (foo(bar)john(do))",
+        "@function(arg1=${foo}),arg1=${foo}",
+        "@(param),param"
+    })
+    void testCalculateParamerterWithUnbalancedParenthesis(String str, String result)
     {
-        String str = "@func(param=true)";
         String parameter = Argument.calculateFunctionParameter(str);
-        assertEquals("param=true",(parameter) );
-    }
-    @Test
-    public void testCalculateParamerterWithEmbedArguments()
-    {
-        String str = "@func(param=true@func2())";
-        String parameter = Argument.calculateFunctionParameter(str);
-        assertEquals("param=true@func2()",(parameter) );
-    }
-    @Test
-    public void testCalculateParamerterWithComplexArguments()
-    {
-        String str = "(a)(b)(c)";
-        String parameter = Argument.calculateFunctionParameter(str);
-        assertEquals("a",(parameter) );
-    }
-    @Test
-    public void testCalculateParamerterWithComplexEmbedArguments()
-    {
-        String str = "((foo(bar)john(do)))()func()";
-        String parameter = Argument.calculateFunctionParameter(str);
-        assertEquals("(foo(bar)john(do))",(parameter) );
-    }
-    @Test
-    public void testCalculateParamerterWithUnbalancedParenthesis()
-    {
-        String str = "func(param()";
-        String parameter = Argument.calculateFunctionParameter(str);
-        assertEquals("",parameter);
-    }
-    @Test
-    public void testCalculateParamerterWithUnbalancedParenthesis2()
-    {
-        String str = ")func(param()";
-        String parameter = Argument.calculateFunctionParameter(str);
-        assertEquals("",parameter);
-    }
-
-    @Test
-    public void testCalculateParamerterWithVariableArgument()
-    {
-        String str = "@function(arg1=${foo})";
-        String parameter = Argument.calculateFunctionParameter(str);
-        assertEquals("arg1=${foo}",(parameter) );
-    }
-    @Test
-    public void testCalculateParamerterWitoutFunctionName()
-    {
-        String str = "@(param)";
-        String parameter = Argument.calculateFunctionParameter(str);
-        assertEquals("param",parameter);
+        assertEquals(result,parameter);
     }
 }

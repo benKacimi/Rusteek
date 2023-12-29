@@ -124,12 +124,6 @@ public abstract class Function  implements Leaf {
         return result.toString();
     }
     public String getNextLexem(final String lexem){
-        int annotationClassNameLenght = 0;
-        
-        if (getFunctionAnnotationName() != null &&
-            !"".equals(getFunctionAnnotationName())){
-                annotationClassNameLenght = getFunctionAnnotationName().length()+1;
-            }
-            return lexem.substring(annotationClassNameLenght+getFunctionName().length()+2+getParameter().length()+1,lexem.length());
+        return lexem.substring(Argument.getLastIndexOfBalanceBraquet(lexem)+1,lexem.length());
     }
 }

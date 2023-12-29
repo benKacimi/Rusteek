@@ -29,7 +29,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
-public class EvaluatedFunction extends Function{
+ public final class EvaluatedFunction extends Function{
     
     public static final char EVALUATED_FUNCTION_CHAR = '@';
     protected static final Logger LOGGER = LoggerFactory.getLogger(EvaluatedFunction.class);
@@ -88,10 +88,9 @@ public class EvaluatedFunction extends Function{
         for (Method ruleMethod : methods) {
             Annotation[] annotations = ruleMethod.getAnnotations();
             for (Annotation annotation : annotations) {
-                if (annotation instanceof org.accelerate.tool.interpreter.rules.Function) {
-                    org.accelerate.tool.interpreter.rules.Function functionAnnotation = (org.accelerate.tool.interpreter.rules.Function) annotation;                        if (getFunctionName().equals(functionAnnotation.name()) || getFunctionName().equals(ruleMethod.getName())) {
-                           return ruleMethod;
-                    }
+                if (annotation instanceof org.accelerate.tool.interpreter.rules.Function functionAnnotation &&  
+                    (getFunctionName().equals(functionAnnotation.name()) || getFunctionName().equals(ruleMethod.getName()))) {
+                        return ruleMethod;
                 }
             }
         }

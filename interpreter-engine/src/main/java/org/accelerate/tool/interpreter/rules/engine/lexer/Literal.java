@@ -12,10 +12,10 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
-public class Literal implements Leaf {
+public final class Literal implements Leaf {
     private String value;
 
-    public void initInstance(String lexem) throws InvalidLeafSyntaxException {
+    public void initInstance(final String lexem) throws InvalidLeafSyntaxException {
         if (null == lexem)
             throw new InvalidLeafSyntaxException("A null value is not allowed");
       

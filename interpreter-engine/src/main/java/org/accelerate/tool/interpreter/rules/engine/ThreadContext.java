@@ -3,11 +3,10 @@ package org.accelerate.tool.interpreter.rules.engine;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ThreadContext {
+public final class ThreadContext {
 
     private ThreadContext() {
     }
-    
     
     private static ThreadLocal<Map<String,String>> threadDataProperties = ThreadLocal.withInitial(HashMap::new);
 
