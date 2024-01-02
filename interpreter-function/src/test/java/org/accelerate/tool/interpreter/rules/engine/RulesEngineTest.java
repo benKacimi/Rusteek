@@ -1,32 +1,31 @@
 package org.accelerate.tool.interpreter.rules.engine;
 
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 
-public class RulesEngineTest {
+class RulesEngineTest {
     RulesEngine engine = new RulesEngine();
     
     @Test
-    public void testRuleEngineWithAFunctionThatContentAFunctionInParameter()
+    void testRuleEngineWithAFunctionThatContentAFunctionInParameter()
     {
        String result = engine.execute("@anonymize.anonymiseUUID(${oldId})");
-       assertNotEquals("Result cannot be null"  ,result,null);
-       assertEquals("Size of the key expected is 38 instead of : " + result.length() ,38,result.length());
+       assertNotEquals(null,result,"Result cannot be null" );
+       assertEquals(38,result.length(),"Size of the key expected is 38 instead of : " + result.length());
        ThreadContext.remove();
        assertNull(ThreadContext.getVariableValue("var1"));
     }
  
 
     @Test
-    public void testRuleEngineWithThreadlocalValueAndAParameterInFunction()
+    void testRuleEngineWithThreadlocalValueAndAParameterInFunction()
     {
       Map<String, String> localProperties = new HashMap<String, String>();
       localProperties.put("customerName","zdzldfsfvklsfcsklfcsfdkl");
@@ -35,7 +34,7 @@ public class RulesEngineTest {
       ThreadContext.setThreadDataMap(localProperties);
       String result = engine.execute("@hash.SHA3256(${customerName})");
 
-      assertEquals("9907ee8f699afdad889273188ba392901fc1d6f8e7e9d11abdd9b9e2fa088fc0",(result));
+      assertEquals("9907ee8f699afdad889273188ba392901fc1d6f8e7e9d11abdd9b9e2fa088fc0",result);
       ThreadContext.remove();
       assertNull(ThreadContext.getVariableValue("customerName"));
     }

@@ -38,6 +38,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <junit.version>5.10.1</junit.version>
 
         <sonar.organization>benkacimi</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -47,7 +48,29 @@
         <module>interpreter-engine</module>
         <module>interpreter-function</module>
     </modules>
-    
+
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.mockito</groupId>
+                    <artifactId>mockito-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
@@ -96,6 +119,13 @@
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
                 <version>1.15.3</version>
+                <dependencies>
+                    <dependency>
+                      <groupId>org.pitest</groupId>
+                      <artifactId>pitest-junit5-plugin</artifactId>
+                      <version>1.2.1</version>
+                    </dependency>
+                  </dependencies>
                 <executions>
                     <execution>
                         <id>pit-report</id>
