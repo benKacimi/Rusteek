@@ -80,10 +80,6 @@ import lombok.experimental.FieldDefaults;
     }
 
     private Method seekMethod() {
-        if (rule == null) {
-            return null;
-        }
-
         Method[] methods = rule.getClass().getMethods();
         for (Method ruleMethod : methods) {
             Annotation[] annotations = ruleMethod.getAnnotations();

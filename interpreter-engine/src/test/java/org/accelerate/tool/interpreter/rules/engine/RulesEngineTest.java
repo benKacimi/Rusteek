@@ -144,6 +144,7 @@ class RulesEngineTest {
       assertEquals("bar",result,"bar expected instead of : " + result);
       ThreadContext.remove();
       assertNull(ThreadContext.getVariableValue("var1"));
+      
    } 
     
    @Test

@@ -23,7 +23,7 @@ class LiteralCreateInstanceTest {
     }    
     
     @ParameterizedTest
-    @ValueSource(strings = {""," ","a","@","   ","foo@bar.com","foo${","foo$","foo = bar","@fonc($zeerc}", "@funcé()"})
+    @ValueSource(strings = {""," ","a","@","#","$","#@$","   ","foo@bar.com","foo${","foo$","foo = bar","@fonc($zeerc}", "@funcé()"})
     void testCreateLiteralInstance(String str)
     {
         Literal literal = new Literal();

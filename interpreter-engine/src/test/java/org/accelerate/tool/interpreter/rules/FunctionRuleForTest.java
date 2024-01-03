@@ -15,4 +15,14 @@ public class FunctionRuleForTest implements Rule{
         return false;
     }
 
+    @Function (name="functionWithWrongReturnType")
+    public String executeWithWrongFunctionName(){
+        return "ERROR";
+    }
+    
+     public String function(){
+        return "foo";
+    }
+    
+
 }

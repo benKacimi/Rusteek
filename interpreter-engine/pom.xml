@@ -30,7 +30,7 @@
 			<id>benkacimi</id>
 			<name>Ben Amar KACIMIr</name>
 			<email>ben.kacimi@gmail.com</email>
-			<url/>
+			<url>https://github.com/benKacimi/function-engine</url>
 			<timezone>+1</timezone>
 		</developer>
 	</developers>
@@ -46,7 +46,7 @@
         <spring-context.version>6.1.1</spring-context.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-configuration2-version>2.9.0</commons-configuration2-version>
-        
+
         <junit.version>5.10.1</junit.version>
         <slf4j-api.version>1.7.36</slf4j-api.version>
       </properties>

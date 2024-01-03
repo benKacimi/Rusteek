@@ -23,15 +23,13 @@ public final class Lexer {
         return root;
     }
 
-    protected void lex(final String lexem, final RootNode parent){
-        String current = (lexem != null) ? lexem : "";
+    protected void lex(final String lexem, final RootNode parent){ 
         
-        if (!"".equals(current)) {
-            Leaf leaf  = initiateLeafInstance(current);
+        if (!"".equals(lexem)) {
+            Leaf leaf  = initiateLeafInstance(lexem);
             
             parent.addChild(leaf);
-            current = leaf.getNextLexem(lexem);
-            lex(current, parent);
+            lex(leaf.getNextLexem(lexem), parent);
         } 
     }
 
@@ -44,8 +42,7 @@ public final class Lexer {
                 leaf.initInstance(lexem);
                 initInstanceSuccess = true;
             } catch (InvalidLeafSyntaxException e) {
-                if (i == 0)
-                    leaf = LeafFactory.createInstance(Leaf.DEFAULT_LEAF);
+                leaf = LeafFactory.createInstance(Leaf.DEFAULT_LEAF);
             }
         }
         return leaf;

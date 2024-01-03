@@ -28,10 +28,10 @@ public final class Argument extends RootNode {
         for (String aArguments : arrArgument){
             Argument argumentResult = new Argument();
             String[] paramNames = aArguments.split("=");
-            if (paramNames.length == 2 && paramNames[0].length() > 0 && paramNames[1].length() > 0){
-                argumentResult.name = paramNames[0].trim();
-                aArguments = paramNames[1];
-            }
+            if (paramNames.length == 2 &&  paramNames[0].length() > 0){
+                    argumentResult.name = paramNames[0].trim();
+                    aArguments = paramNames[1];
+                }
             lexer.lex(aArguments.trim(),argumentResult);
             if(argumentList == null)
                 argumentList = new ArrayList<>();
