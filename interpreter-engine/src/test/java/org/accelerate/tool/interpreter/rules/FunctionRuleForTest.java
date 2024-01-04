@@ -14,11 +14,6 @@ public class FunctionRuleForTest implements Rule{
     public boolean executeWithWrongReturnType(){
         return false;
     }
-
-    @Function (name="functionWithWrongReturnType")
-    public String executeWithWrongFunctionName(){
-        return "ERROR";
-    }
     
      public String function(){
         return "foo";
