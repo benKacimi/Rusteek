@@ -92,5 +92,10 @@
             <artifactId>commons-beanutils</artifactId>
             <version>${commons-beanutils.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>3.10.0.2594</version>
+        </dependency>
     </dependencies>
 </project>
