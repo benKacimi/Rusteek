@@ -43,7 +43,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <lombok.version>1.18.30</lombok.version>
-        <spring-context.version>6.1.1</spring-context.version>
+        <spring-context.version>6.1.2</spring-context.version>
         <junit.version>4.13.1</junit.version>
         <slf4j-api.version>1.7.36</slf4j-api.version>
       </properties>
