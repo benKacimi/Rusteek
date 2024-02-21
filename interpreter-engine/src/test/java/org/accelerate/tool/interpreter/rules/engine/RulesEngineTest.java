@@ -152,5 +152,12 @@ class RulesEngineTest {
    {
       String result = engine.execute("${ var2 }");
       assertEquals("${var2}",result,"${var2} expected instead of : " + result);
-   }   
+   } 
+
+   @Test
+   void testRuleEngineWithDoubleSPecialCarFunction()
+    {
+       String result = engine.execute("@@function()");
+       assertEquals("@foo",result,"foo expected instead of : " + result);
+    }
 }
