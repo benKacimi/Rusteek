@@ -13,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 @Setter
-public class Argument extends RootNode {
+public final class Argument extends RootNode {
 
     private String name = "";
 
@@ -28,10 +28,10 @@ public class Argument extends RootNode {
         for (String aArguments : arrArgument){
             Argument argumentResult = new Argument();
             String[] paramNames = aArguments.split("=");
-            if (paramNames.length == 2 && paramNames[0].length() > 0 && paramNames[1].length() > 0){
-                argumentResult.name = paramNames[0].trim();
-                aArguments = paramNames[1];
-            }
+            if (paramNames.length == 2 &&  paramNames[0].length() > 0){
+                    argumentResult.name = paramNames[0].trim();
+                    aArguments = paramNames[1];
+                }
             lexer.lex(aArguments.trim(),argumentResult);
             if(argumentList == null)
                 argumentList = new ArrayList<>();
@@ -44,10 +44,21 @@ public class Argument extends RootNode {
         if (phrase == null || phrase.isEmpty())
             return "";
         
+        int lastClosingParenthesisIndex = getLastIndexOfBalanceBraquet(phrase);
+        int openingParenthesisIndex = phrase.indexOf("(");
+      
+        if (lastClosingParenthesisIndex != -1)  {
+           return (phrase.substring(openingParenthesisIndex+1,lastClosingParenthesisIndex));
+        }
+        return "";
+    }
+
+    protected static int getLastIndexOfBalanceBraquet(final String phrase){
         int openingParenthesisIndex = phrase.indexOf("(");
         int parenthesisBalance = 0;
+
         if (openingParenthesisIndex == -1)  {
-            return "";
+            return -1;
         }
         for(int i = openingParenthesisIndex ; i < phrase.length(); i++) {
             if (phrase.charAt(i) == '(') {
@@ -55,9 +66,9 @@ public class Argument extends RootNode {
             } else if (phrase.charAt(i) == ')'){
                 parenthesisBalance--;
                 if (parenthesisBalance == 0)
-                    return (phrase.substring(openingParenthesisIndex+1,i));
+                    return i;
             }
         }
-        return "";
+        return -1;
     }
 }

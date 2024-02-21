@@ -1,14 +1,14 @@
 package org.accelerate.tool.interpreter.rules.engine.lexer;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.accelerate.tool.interpreter.rules.engine.lexer.execption.InvalidFunctionSyntaxException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class FunctionCreateInstanceTest {
+class FunctionCreateInstanceTest {
 
     @Test
-    public void testCalculateParamerterWitBlankParameter()
+    void testCalculateParamerterWitBlankParameter()
     {
         String lexem = "";
        
@@ -19,7 +19,7 @@ public class FunctionCreateInstanceTest {
         }
     }
     @Test
-    public void testCalculateParamerterWitNullParameter()
+    void testCalculateParamerterWitNullParameter()
     {
        
         try {

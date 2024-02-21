@@ -1,14 +1,17 @@
 package org.accelerate.tool.interpreter.rules.engine.lexer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.accelerate.tool.interpreter.rules.engine.lexer.execption.InvalidLeafSyntaxException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
-public class LiteralCreateInstanceTest {
+
+class LiteralCreateInstanceTest {
     @Test
-    public void testCreateInstanceWithNullLexem()
+    void testCreateInstanceWithNullLexem()
     {
          Literal literal = new Literal();
         try {
@@ -19,49 +22,24 @@ public class LiteralCreateInstanceTest {
         }
     }    
     
-    @Test
-    public void testCreateInstanceWithBlankLexem()
+    @ParameterizedTest
+    @ValueSource(strings = {""," ","a","@","#","$","#@$","   ","foo@bar.com","foo${","foo$","foo = bar","@fonc($zeerc}", "@funcé()"})
+    void testCreateLiteralInstance(String str)
     {
-        String str = "";
-         Literal literal = new Literal();
-        try {
-            literal.initInstance(str);
-            assertEquals("",literal.getValue());
-        } catch (InvalidLeafSyntaxException e) {
-            assertTrue(false);
-        }
-        
-    }
-    @Test
-    public void testCreateInstanceWithSpace()
-    {
-        String str = " ";
         Literal literal = new Literal();
         try {
             literal.initInstance(str);
-            assertEquals(" ",literal.getValue());
-        } catch (InvalidLeafSyntaxException e) {
-            assertTrue(false);
-        }
-       
-    }
-    @Test
-    public void testCreateInstanceWithEmailAdress()
-    {
-        String str = "foo@bar.com";
-        Literal literal = new Literal();
-        try {
-            literal.initInstance(str);
-            assertEquals("foo@bar.com",literal.getValue());
+            assertEquals(str,literal.getValue());
         } catch (InvalidLeafSyntaxException e) {
             assertTrue(false);
         }
     }
+    
     @Test
-    public void testCreateInstanceWithEmailAdressPlusAFunction()
+    void testCreateInstanceWithEmailAdressPlusAFunction()
     {
         String str = "foo@bar.com@func()";
-         Literal literal = new Literal();
+        Literal literal = new Literal();
         try {
             literal.initInstance(str);
             assertEquals("foo@bar.com",literal.getValue());
@@ -69,54 +47,5 @@ public class LiteralCreateInstanceTest {
             assertTrue(false);
         }
     }
-    @Test
-    public void testCreateInstanceWithInvalidVariable()
-    {
-        String str = "foo${";
-         Literal literal = new Literal();
-        try {
-            literal.initInstance(str);
-            assertEquals("foo${",literal.getValue());
-        } catch (InvalidLeafSyntaxException e) {
-            assertTrue(false);
-        }
-    }
-    @Test   
-    public void testCreateInstanceWithDollardAtTheEnd()
-    {
-        String str = "foo$";
-        Literal literal = new Literal();
-        try {
-            literal.initInstance(str);
-            assertEquals("foo$",literal.getValue());
-        } catch (InvalidLeafSyntaxException e) {
-            assertTrue(false);
-        }
-        
-    }
-    @Test   
-    public void testCreateInstanceWithOneCaractere()
-    {
-        String str = "a";
-        Literal literal = new Literal();
-        try {
-            literal.initInstance(str);
-            assertEquals("a",literal.getValue());
-        } catch (InvalidLeafSyntaxException e) {
-            assertTrue(false);
-        }
-    }  
-    @Test   
-    public void testCreateInstanceWithEqualCaractere()
-    {
-        String str = "foo = bar";
-        Literal literal = new Literal();
-        try {
-            literal.initInstance(str);
-            assertEquals("foo = bar expected instead of : "+literal.getValue(), "foo = bar", literal.getValue());
-        } catch (InvalidLeafSyntaxException e) {
-            assertTrue(false);
-        }
-    }     
 }
 

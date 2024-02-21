@@ -1,17 +1,21 @@
 package org.accelerate.tool.interpreter.rules.engine.lexer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Collections;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
-public class LexTest {
 
+
+class LexTest {
     @Test
-    public void testLexEmptyString()
+    void testLexEmptyString()
     {
         String str = "";
         Lexer lexer = new Lexer();
@@ -20,54 +24,40 @@ public class LexTest {
     }
 
     @Test
-    public void testLexNull()
+    void testLexNull()
     {
         Lexer lexer = new Lexer();
         RootNode root = lexer.lex(null);
         assertNull(root.getChildren());
     }
-    @Test
-    public void testLexStringWithBackspace()
+    @ParameterizedTest
+    @ValueSource(strings = {" ","   ","@()","foo.bar${aVariable"})
+    void testLexLiteral(String str)
     {
-        String str = "   ";
         Lexer lexer = new Lexer();
         RootNode root = lexer.lex(str);
         Literal literal = (Literal)root.getChildren().get(0);
-        assertEquals("   ",(literal.getValue()));
+        assertEquals(str,(literal.getValue()));
+        assertEquals(1, root.getChildren().size(), "one chhild expected instead of  : " + root.getChildren().size() );
     }
-    @Test
-    public void testLexASimpleFunction()
+    @ParameterizedTest
+    @CsvSource({
+        "@function(), function",
+        "@functionTest(   ), functionTest",
+        "@func     (), func"
+    })
+    void testLexASimpleFunction(String str, String functionName)
     {
-        String str = "@function()";
         Lexer lexer = new Lexer();
         RootNode root = lexer.lex(str);
         EvaluatedFunction function = (EvaluatedFunction)root.getChildren().get(0);
         assertEquals(Collections.emptyList(),function.getArguments());
-        assertEquals("function",(function.getFunctionName()));
-        assertEquals("one chhild expected instead of  : " + root.getChildren().size(),  1 ,root.getChildren().size());
+        assertEquals(functionName,(function.getFunctionName()));
+        assertEquals(1, root.getChildren().size(), "one chhild expected instead of  : " + root.getChildren().size() );
     }
+
     @Test
-    public void testLexASimpleFunctionWithBlankArgument()
-    {
-        String str = "@functionTest(   )";
-        Lexer lexer = new Lexer();
-        RootNode root = lexer.lex(str);
-        EvaluatedFunction function = (EvaluatedFunction)root.getChildren().get(0);
-        assertEquals(Collections.emptyList(),function.getArguments());
-        assertEquals("functionTest",(function.getFunctionName()));
-        assertEquals("one chhild expected instead of  : " + root.getChildren().size(),  1 , root.getChildren().size());
-    }
-    @Test
-    public void testLexStringWithNoFunctionName()
-    {
-        String str = "@()";
-        Lexer lexer = new Lexer();
-        RootNode root = lexer.lex(str);
-        Literal literal = (Literal)root.getChildren().get(0);
-        assertEquals("@()",(literal.getValue()));
-    }
-    @Test
-    public void testLexASimpleFunctionWithLiteralParameter()
+    void testLexASimpleFunctionWithLiteralParameter()
     {
         String str = "@function(  a parameter  )";
         Lexer lexer = new Lexer();
@@ -77,10 +67,10 @@ public class LexTest {
         Argument arg = function.getArguments().get(0);
         Literal literal =(Literal)arg.getChildren().get(0);
         assertEquals("a parameter",(literal.getValue()));
-        assertEquals("one chhild expected instead of  : " + root.getChildren().size(),  1 , root.getChildren().size());
+        assertEquals(1, root.getChildren().size(),  "one chhild expected instead of  : " + root.getChildren().size() );
     }
     @Test
-    public void testLexASimpleFunctionWithLiteralParameterAndOtherFunction()
+    void testLexASimpleFunctionWithLiteralParameterAndOtherFunction()
     {
         String str = "@function(a parameter)foo@bar@function2(@functionGetParameter())$";
         Lexer lexer = new Lexer();
@@ -92,105 +82,99 @@ public class LexTest {
         assertEquals("a parameter",(literal1.getValue()));
 
         Literal literal2 = (Literal)root.getChildren().get(1);
-        assertEquals("function name containts an @", "foo@bar",(literal2.getValue()));
+        assertEquals("foo@bar", literal2.getValue(),"function name containts an @");
 
-        assertEquals("4 nodes over : " + root.getChildren().size() , 4 ,root.getChildren().size());
+        assertEquals(4 ,root.getChildren().size(), "4 nodes over : " + root.getChildren().size() );
 
         Literal literal3 = (Literal)root.getChildren().get(3);
-        assertEquals("$' exepected instead of : "+ literal3.getValue(), "$",(literal3.getValue()));
+        assertEquals("$",literal3.getValue(), "$' exepected instead of : "+ literal3.getValue());
 
         assertEquals(root,lexer.lex(str));
     }
     @Test
-    public void testLexASimpleFunctionWithEmailAdressAndFunction()
+    void testLexASimpleFunctionWithEmailAdressAndFunction()
     {
         String str = "foo@bar.com@function()";
         Lexer lexer = new Lexer();
         RootNode root = lexer.lex(str);
         EvaluatedFunction function = (EvaluatedFunction)root.getChildren().get(1);
         assertEquals("function",(function.getFunctionName()));
-        assertEquals( "Rules Class error : "+ function.getFunctionName(),
-                    "org.accelerate.tool.interpreter.rules.FunctionRuleForTest",
-                    (function.getRule().getClass().getName()));
+        assertEquals( "org.accelerate.tool.interpreter.rules.FunctionRuleForTest",
+                    function.getRule().getClass().getName(),
+                    "Rules Class error : "+ function.getFunctionName());
     }
     @Test
-    public void testLexASimpleFunctionWithEmailAdressAndFunctionWithANumberInFunctionName()
+    void testLexASimpleFunctionWithEmailAdressAndFunctionWithANumberInFunctionName()
     {
         String str = "foo@bar.com@func23()";
         Lexer lexer = new Lexer();
         RootNode root = lexer.lex (str);
         EvaluatedFunction function = (EvaluatedFunction)root.getChildren().get(1);
-        assertEquals("Function Name should be func23 instead : " + function.getFunctionName(),"func23",(function.getFunctionName()));
+        assertEquals("func23",function.getFunctionName(),"Function Name should be func23 instead : " + function.getFunctionName());
         assertEquals(root,lexer.lex(str));
     }
 
     @Test
-    public void testLexASimpleFunctionWithBlancInFunctionName()
+    void testLexASimpleFunctionWithBlancInFunctionName()
     {
         String str = "foo@bar.com@func23    ()";
         Lexer lexer = new Lexer();
         RootNode root = lexer.lex (str);
         EvaluatedFunction function = (EvaluatedFunction)root.getChildren().get(1);
-        assertEquals("Function Name should be func23 instead : " + function.getFunctionName(),"func23",(function.getFunctionName()));
+        assertEquals("func23",function.getFunctionName(),"Function Name should be func23 instead : " + function.getFunctionName());
     }
 
     @Test
-    public void testLexASimpleFunctionWittEqualParameter()
+    void testLexASimpleFunctionWittEqualParameter()
     {
         String str = "foo@bar.com@func23(foo=bar)";
         Lexer lexer = new Lexer();
         RootNode root = lexer.lex (str);
         EvaluatedFunction function = (EvaluatedFunction)root.getChildren().get(1);
-        assertEquals("Function Name should be func23 instead : " + function.getFunctionName(),"func23",(function.getFunctionName()));
+        assertEquals("func23",function.getFunctionName(),"Function Name should be func23 instead : " + function.getFunctionName());
         function.getArguments().get(0).getChildren().get(0);
         String argumentName = function.getArguments().get(0).getName();
-        assertEquals("Parameter Name should be foo instead : " + argumentName,"foo",argumentName);
+        assertEquals("foo",argumentName,"Parameter Name should be foo instead : " + argumentName);
         String argumentValue = ((Literal)function.getArguments().get(0).getChildren().get(0)).getValue();
-        assertEquals("Parameter Value should be bar instead : " + argumentValue,"bar",argumentValue);
+        assertEquals("bar",argumentValue,"Parameter Value should be bar instead : " + argumentValue);
     }
     @Test
-    public void testLexASimpleFunctionWittWrongEqualParameter()
+    void testLexASimpleFunctionWittWrongEqualParameter()
     {
         String str = "@function(bar=,foo=fuzz,=buzz)";
         Lexer lexer = new Lexer();
         RootNode root = lexer.lex (str);
         EvaluatedFunction function = (EvaluatedFunction)root.getChildren().get(0);
-        assertEquals("Function Name should be function instead : " + function.getFunctionName(),"function",(function.getFunctionName()));
+        assertEquals("function",function.getFunctionName(),"Function Name should be function instead : " + function.getFunctionName());
         
         String parameterValue1 = ((Literal)function.getArguments().get(0).getChildren().get(0)).getValue();
-        assertEquals("Parameter Value should be [bar=]instead : " + parameterValue1,"bar=",parameterValue1);
+        assertEquals("bar=", parameterValue1,"Parameter Value should be [bar=]instead : " + parameterValue1);
         
         String argumentName2 = function.getArguments().get(1).getName();
-        assertEquals("Parameter 2 Name should be [foo] instead : " + argumentName2,"foo",argumentName2);
+        assertEquals("foo",argumentName2,"Parameter 2 Name should be [foo] instead : " + argumentName2);
         String argumentValue2 = ((Literal)function.getArguments().get(1).getChildren().get(0)).getValue();
-        assertEquals("Parameter Value should be fuzz instead : " + argumentValue2,"fuzz",argumentValue2);
+        assertEquals("fuzz",argumentValue2,"Parameter Value should be fuzz instead : " + argumentValue2);
 
         String parameterValue3 = ((Literal)function.getArguments().get(2).getChildren().get(0)).getValue();
-        assertEquals("Parameter Value should be [=buzz] instead : " + parameterValue3,"=buzz",parameterValue3);
+        assertEquals("=buzz",parameterValue3,"Parameter Value should be [=buzz] instead : " + parameterValue3);
         
     }
-    @Test
-    public void testLexASimpleVariale()
+    @ParameterizedTest
+    @CsvSource({
+        "${aVariable}, aVariable",
+        "${ aVariable }, aVariable"
+    })
+    void testLexASimpleVarialeWithBlankCaratere(String str, String varName)
     {
-        String str = "${aVariable}";
         Lexer lexer = new Lexer();
         RootNode root = lexer.lex(str);
         Variable aVar = (Variable)root.getChildren().get(0);
-        assertEquals("aVariable",(aVar.getKeyName()));
-    }
-    @Test
-    public void testLexASimpleVarialeWithBlankCaratere()
-    {
-        String str = "${ aVariable }";
-        Lexer lexer = new Lexer();
-        RootNode root = lexer.lex(str);
-        Variable aVar = (Variable)root.getChildren().get(0);
-        assertEquals("Variable Key should be aVariable instead : " + aVar.getKeyName(),"aVariable",(aVar.getKeyName()));
+        assertEquals(varName, aVar.getKeyName(), "Variable Key should be "+varName+" instead : " + aVar.getKeyName());
     
-        assertEquals("aVariable",(aVar.getKeyName()));
+        assertEquals(varName,(aVar.getKeyName()));
     }
     @Test
-    public void testLexASimpleFunctionPlusAVariable()
+    void testLexASimpleFunctionPlusAVariable()
     {
         String str = "@function(${aVariable}).bar";
         Lexer lexer = new Lexer();
@@ -200,11 +184,11 @@ public class LexTest {
         Variable aVar =(Variable)arg.getChildren().get(0);
         assertEquals("aVariable",(aVar.getKeyName()));
         Literal literal = (Literal)root.getChildren().get(1);
-        assertEquals("literal should be .bar instead of : " + literal.getValue(), ".bar",(literal.getValue()));
+        assertEquals(".bar", literal.getValue(), "literal should be .bar instead of : " + literal.getValue());
         assertNotEquals(null,function.getRule().getClass().getName());
     }
     @Test
-    public void testLexASimpleFunctionWithEqual()
+    void testLexASimpleFunctionWithEqual()
     {
         String str = "@function(foo=${aVariable}).bar";
         Lexer lexer = new Lexer();
@@ -212,15 +196,15 @@ public class LexTest {
         EvaluatedFunction function = (EvaluatedFunction)root.getChildren().get(0);
         Argument arg = function.getArguments().get(0);
         Variable aVar =(Variable)arg.getChildren().get(0);
-        assertEquals("Parameter na should be foo instead of : " + arg.getName(), "foo",(arg.getName()));
+        assertEquals("foo",arg.getName(), "Parameter should be [foo] instead of : " + arg.getName());
         assertEquals("aVariable",(aVar.getKeyName()));
         Literal literal = (Literal)root.getChildren().get(1);
-        assertEquals("literal should be .bar instead of : " + literal.getValue(), ".bar",(literal.getValue()));
+        assertEquals(".bar",literal.getValue(), "literal should be .bar instead of : " + literal.getValue());
         assertNotEquals( null,function.getRule().getClass().getName());
     }
 
-     @Test
-    public void testLexLiteralPlusAValidVariable()
+    @Test
+    void testLexLiteralPlusAValidVariable()
     {
         String str = "foo.bar${aVariable}b";
         Lexer lexer = new Lexer();
@@ -231,15 +215,5 @@ public class LexTest {
         assertEquals("aVariable",(aVar.getKeyName()));
         Literal literal2 = (Literal)root.getChildren().get(2);
         assertEquals("b",(literal2.getValue()));
-    }
-
-@Test
-    public void testLexLiteralPlusAInValidVariable()
-    {
-        String str = "foo.bar${aVariable";
-        Lexer lexer = new Lexer();
-        RootNode root = lexer.lex(str);
-        Literal literal = (Literal)root.getChildren().get(0);
-        assertEquals("foo.bar${aVariable",(literal.getValue()));
     }
 }

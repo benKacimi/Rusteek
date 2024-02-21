@@ -1,6 +1,6 @@
 package org.accelerate.tool.interpreter.rules.engine.lexer;
 
-public class LeafFactory {
+public final class LeafFactory {
 
     private LeafFactory() {
     }

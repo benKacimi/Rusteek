@@ -31,7 +31,7 @@
 			<id>benkacimi</id>
 			<name>Ben Amar KACIMIr</name>
 			<email>ben.kacimi@gmail.com</email>
-			<url></url>
+			<url>https://github.com/benKacimi/function-engine</url>
 			<timezone>+1</timezone>
 		</developer>
 	</developers>
@@ -43,18 +43,23 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <lombok.version>1.18.30</lombok.version>
         <spring-context.version>6.1.1</spring-context.version>
-        <junit.version>4.13.1</junit.version>
+        <junit.version>5.10.1</junit.version>
         <slf4j-api.version>1.7.36</slf4j-api.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>interpreter-engine</artifactId>
             <version>${project.parent.version}</version>
+            <artifactId>interpreter-engine</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency> 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -62,16 +67,22 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-          </dependency>
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j-api.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.1.2</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>

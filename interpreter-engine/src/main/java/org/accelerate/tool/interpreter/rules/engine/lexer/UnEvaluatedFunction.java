@@ -14,7 +14,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 
-public class UnEvaluatedFunction extends Function {
+public final class UnEvaluatedFunction extends Function {
 
     public static final char UNEVALUATED_FUNCTION_CHAR = '#';
 

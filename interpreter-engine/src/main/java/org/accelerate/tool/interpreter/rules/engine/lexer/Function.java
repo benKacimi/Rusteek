@@ -27,9 +27,7 @@ public abstract class Function  implements Leaf {
         if (!checkAndSetFunction(lexem)) {
             throw new InvalidFunctionSyntaxException(lexem) ;       
         }
-        if (parameter != null) {
-               arguments = Argument.createArgumentList(parameter.trim());
-        }
+        arguments = Argument.createArgumentList(parameter.trim());
     }
     protected static boolean isAValidFunction(final String lexem) {
         return new UnEvaluatedFunction().checkAndSetFunction(lexem);
@@ -49,13 +47,11 @@ public abstract class Function  implements Leaf {
                                 calculateFunctionName(lexem.substring(1 + functionAnnotationName.length()));
             parameter = Argument.calculateFunctionParameter(lexem.substring(openingParenthesisIndex));
            
-            return parameter!= null && !functionName.isEmpty();
+            return !functionName.isEmpty();
         }
         return false;
     }
     protected static String calculateAnnotationFunctionName(final String phrase) {
-        if(phrase == null)
-            return "";
         int pointIndex = phrase.indexOf(".");
         String calculatedClassName = "";
         if (pointIndex != -1){
@@ -70,15 +66,13 @@ public abstract class Function  implements Leaf {
         if (phrase == null || phrase.isEmpty()) {
             return "";
         }
-        
+  
         int openingParenthesisIndex = phrase.indexOf("(");
-        if (openingParenthesisIndex != -1) {
-            String calculatedName = phrase.substring(1, openingParenthesisIndex).trim();
-            if (!calculatedName.isEmpty() && checkFunctionNameSyntax(calculatedName)) {
-                return calculatedName;
-            }
+      
+        String calculatedName = phrase.substring(1, openingParenthesisIndex).trim();
+        if (!calculatedName.isEmpty() && checkFunctionNameSyntax(calculatedName)) {
+            return calculatedName;
         }
-        
         return "";
     }
     protected static boolean checkFunctionNameSyntax(final String functionName){
@@ -88,10 +82,7 @@ public abstract class Function  implements Leaf {
     }
 
     protected String[] evalArguments(final boolean errorFormat) {
-        if (arguments == null) {
-            return new String[0];
-        }
-        
+
         String[] argumentArray = new String[arguments.size()];
         
         for (int i = 0; i < arguments.size(); i++) {
@@ -124,12 +115,6 @@ public abstract class Function  implements Leaf {
         return result.toString();
     }
     public String getNextLexem(final String lexem){
-        int annotationClassNameLenght = 0;
-        
-        if (getFunctionAnnotationName() != null &&
-            !"".equals(getFunctionAnnotationName())){
-                annotationClassNameLenght = getFunctionAnnotationName().length()+1;
-            }
-            return lexem.substring(annotationClassNameLenght+getFunctionName().length()+2+getParameter().length()+1,lexem.length());
+        return lexem.substring(Argument.getLastIndexOfBalanceBraquet(lexem)+1,lexem.length());
     }
 }

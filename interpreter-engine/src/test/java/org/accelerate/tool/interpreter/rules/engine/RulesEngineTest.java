@@ -1,143 +1,139 @@
 package org.accelerate.tool.interpreter.rules.engine;
 
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-
-public class RulesEngineTest {
+class RulesEngineTest {
     RulesEngine engine = new RulesEngine();
     
     @Test
-    public void testRuleEngineWithNullInputParameter()
+   void testRuleEngineWithNullInputParameter()
     {
        String foo = null;
        String result = engine.execute(foo);
-       assertEquals("Null expeted instead of : " + result,  null, result);
+       assertEquals(null, result, "Null expeted instead of : " + result);
     }
 
-    @Test
-    public void testRuleEngineWithEmptyStringInputParameter()
+   @Test
+   void testRuleEngineWithEmptyStringInputParameter()
     {
        String result = engine.execute("");
-       assertEquals("Empty String expeted instead of : " + result,  "", result);
+       assertEquals("", result,"Empty String expeted instead of : " + result);
     }
 
-    @Test
-    public void testRuleEngineALitteral()
+   @Test
+   void testRuleEngineALitteral()
     {
        String result = engine.execute("foo bar");
-       assertEquals("foo bar  expeted instead of : " + result,  "foo bar",result);
+       assertEquals("foo bar",result,"foo bar  expeted instead of : " + result);
     }
 
-    @Test
-    public void testRuleEngineWithAFunction()
+   @Test
+   void testRuleEngineWithAFunction()
     {
        String result = engine.execute("@function()");
-       assertEquals("foo expected instead of : " + result,  "foo",result);
+       assertEquals("foo",result,"foo expected instead of : " + result);
     }
 
-    @Test
-    public void testRuleEngineWithAFunctionThatDoesntExist()
+   @Test
+   void testRuleEngineWithAFunctionThatDoesntExist()
     {
        String result = engine.execute("@nonExistentFunction()");
-       assertEquals("@nonExistentFunction() expected instead of : " + result,  "@nonExistentFunction()",result);
+       assertEquals("@nonExistentFunction()",result,"@nonExistentFunction() expected instead of : " + result);
     }
 
-    @Test
-    public void testRuleEngineWithAFunctionThatDoesntExistWithParameterToEval()
+   @Test
+   void testRuleEngineWithAFunctionThatDoesntExistWithParameterToEval()
     {
        String result = engine.execute("@nonExistentFunction(@function())");
-       assertEquals("@nonExistentFunction(foo) expected instead of : " + result,  "@nonExistentFunction(foo)",result);
+       assertEquals("@nonExistentFunction(foo)",result,"@nonExistentFunction(foo) expected instead of : " + result);
     }
 
-    @Test
-    public void testRuleEngineWithAFunctionThatDoesntExistWithParameterAndParameterName()
+   @Test
+   void testRuleEngineWithAFunctionThatDoesntExistWithParameterAndParameterName()
     {
        String result = engine.execute("@nonExistentFunction(bar = @function())");
-       assertEquals("@nonExistentFunction(bar=foo) expected instead of : " + result,  "@nonExistentFunction(bar=foo)",result);
+       assertEquals("@nonExistentFunction(bar=foo)",result,"@nonExistentFunction(bar=foo) expected instead of : " + result);
     }
-    @Test
-    public void testRuleEngineWithAFunctionThatDoesntExistWithParameterAndEqualCaratere()
+   @Test
+   void testRuleEngineWithAFunctionThatDoesntExistWithParameterAndEqualCaratere()
     {
        String result = engine.execute("@nonExistentFunction( = @function())");
-       assertEquals("@nonExistentFunction(=foo) expected instead of : " + result,  "@nonExistentFunction(=foo)",result);
+       assertEquals("@nonExistentFunction(=foo)",result,"@nonExistentFunction(=foo) expected instead of : " + result);
     }
-    @Test
-    public void testRuleEngineWithAFunctionThatDoesntExistWithAnExistingClass()
+   @Test
+   void testRuleEngineWithAFunctionThatDoesntExistWithAnExistingClass()
     {
        String result = engine.execute("@function.nonExistentFunction()");
-       assertEquals("@function.nonExistentFunction() expected instead of : " + result,  "@function.nonExistentFunction()",(result));
+       assertEquals("@function.nonExistentFunction()",result,"@function.nonExistentFunction() expected instead of : " + result);
     }
-    @Test
-    public void testRuleEngineWithAFunctionThatDoesntExistWithAnNonExistingClass()
+   @Test
+   void testRuleEngineWithAFunctionThatDoesntExistWithAnNonExistingClass()
     {
        String result = engine.execute("@nonExistentClass.nonExistentFunction()");
-       assertEquals("@nonExistentClass.nonExistentFunction() expected instead of : " + result,  "@nonExistentClass.nonExistentFunction()",(result));
+       assertEquals("@nonExistentClass.nonExistentFunction()",result,"@nonExistentClass.nonExistentFunction() expected instead of : " + result);
     }
 
-    @Test
-    public void testRuleEngineWithAFunctionWithBackSpaceParameter()
+   @Test
+   void testRuleEngineWithAFunctionWithBackSpaceParameter()
     {
        String result = engine.execute("@function( )");
-       assertEquals("foo expected instead of : " + result,  "foo",(result));
+       assertEquals("foo",result,"foo expected instead of : " + result);
     }
-    @Test
-    public void testRuleEngineWithAFunctionThatContaindAWrongNumberOfParameter()
+   @Test
+   void testRuleEngineWithAFunctionThatContaindAWrongNumberOfParameter()
     {
        String result = engine.execute("@function(foo= bar)");
-       assertEquals("@function(foo=bar) expected instead of : " + result,  "@function(foo=bar)",(result));
+       assertEquals("@function(foo=bar)",result,"@function(foo=bar) expected instead of : " + result);
        //Note : we lost the backspace caracter in the result (foo=bar instead of foo= bar)
     }
 
-    @Test
-    public void testRuleEngineWithAFunctionThatDoesntReturnAString()
+   @Test
+   void testRuleEngineWithAFunctionThatDoesntReturnAString()
     {
        String result = engine.execute("@function.functionWithWrongReturnType()");
-       assertEquals("@functionWithWrongReturnType() expected instead of : " + result,  "@function.functionWithWrongReturnType()",(result));
+       assertEquals("@function.functionWithWrongReturnType()",result,"@functionWithWrongReturnType() expected instead of : " + result);
     }
 
-    @Test
-    public void testRuleEngineWithANonEvaluatedFunctionWithoutArgument()
+   @Test
+   void testRuleEngineWithANonEvaluatedFunctionWithoutArgument()
     {
        String result = engine.execute("#function.aFunction( )");
-       assertEquals("@function.aFunction() expected instead of : " + result,  "@function.aFunction()",(result));
+       assertEquals("@function.aFunction()",result,"@function.aFunction() expected instead of : " + result);
     }
-    @Test
-    public void testRuleEngineWithANonEvaluatedFunctionWithArgumentToEvaluate()
+   @Test
+   void testRuleEngineWithANonEvaluatedFunctionWithArgumentToEvaluate()
     {
        String result = engine.execute("#function.aFunction(@function())");
-       assertEquals("@function.aFunction(foo) expected instead of : " + result,  "@function.aFunction(foo)",(result));
+       assertEquals("@function.aFunction(foo)",result,"@function.aFunction(foo) expected instead of : " + result);
     }
-    @Test
-    public void testRuleEngineWithANonEvaluatedFunction()
+   @Test
+   void testRuleEngineWithANonEvaluatedFunction()
     {
        String result = engine.execute("#function()");
-       assertEquals("@function() expected instead of : " + result,  "@function()",(result));
+       assertEquals("@function()",result,"@function() expected instead of : " + result);
     }
-    @Test
-    public void testRuleEngineWithThreadlocalValue()
-    {
+   @Test
+   void testRuleEngineWithThreadlocalValue()
+   {
       Map<String, String> localProperties = new HashMap<String, String>();
       localProperties.put("var1","foo");
       localProperties.put("var2","bar");
       ThreadContext.setThreadDataMap(localProperties);
        String result = engine.execute("${var2}");
        
-       assertEquals("bar expected instead of : " + result ,"bar",(result));
+       assertEquals("bar",result,"bar expected instead of : " + result);
        ThreadContext.remove();
        assertNull(ThreadContext.getVariableValue("var1"));
-       
-
-    }
-    @Test
-    public void testRuleEngineWithThreadlocalValueAndSpaceCaratere()
-    {
+   }
+   @Test
+   void testRuleEngineWithThreadlocalValueAndSpaceCaratere()
+   {
       Map<String, String> localProperties = new HashMap<String, String>();
       localProperties.put("var1","foo");
       localProperties.put("var2","bar");
@@ -145,15 +141,23 @@ public class RulesEngineTest {
       ThreadContext.setThreadDataMap(localProperties);
       String result = engine.execute("${ var2 }");
        
-      assertEquals("bar expected instead of : " + result ,"bar",(result));
+      assertEquals("bar",result,"bar expected instead of : " + result);
       ThreadContext.remove();
       assertNull(ThreadContext.getVariableValue("var1"));
-    } 
+      
+   } 
     
-    @Test
-    public void testRuleEngineWithVariableWithoutValue()
-    {
+   @Test
+   void testRuleEngineWithVariableWithoutValue()
+   {
       String result = engine.execute("${ var2 }");
-      assertEquals("${var2} expected instead of : " + result ,"${var2}",(result));
-    }   
+      assertEquals("${var2}",result,"${var2} expected instead of : " + result);
+   } 
+
+   @Test
+   void testRuleEngineWithDoubleSPecialCarFunction()
+    {
+       String result = engine.execute("@@function()");
+       assertEquals("@foo",result,"foo expected instead of : " + result);
+    }
 }

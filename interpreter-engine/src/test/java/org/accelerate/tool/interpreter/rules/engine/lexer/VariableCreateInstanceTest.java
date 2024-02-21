@@ -1,14 +1,17 @@
 package org.accelerate.tool.interpreter.rules.engine.lexer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.accelerate.tool.interpreter.rules.engine.lexer.execption.InvalidVariableSyntaxException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
-public class VariableCreateInstanceTest {
+class VariableCreateInstanceTest {
     @Test
-    public void testCreateInstanceWithNullLexem()
+    void testCreateInstanceWithNullLexem()
     {
         Variable var = new Variable();
         try {
@@ -19,11 +22,12 @@ public class VariableCreateInstanceTest {
         }
     }    
     
-    @Test
-    public void testCreateInstanceWithBlankLexem()
+    @ParameterizedTest
+    @ValueSource(strings = {""," ","   ","$","${","${}","${ }"})
+    void testCreateVariableInstanceWithWrongSyntax(String str)
     {
         Variable var = new Variable();
-        String str = "";
+    
         try {
             var.initInstance(str);
             assertTrue(false);
@@ -31,109 +35,29 @@ public class VariableCreateInstanceTest {
             assertTrue(true);
         }
     }
-    @Test
-    public void testCreateInstanceWithSpace()
+   
+    @ParameterizedTest
+    @CsvSource({
+        "${ aVar },' aVar '",
+        "${aVariable},aVariable",
+         "${foo.bar},foo.bar"
+    })
+    void testCreateSimpleVariableInstance(String str, String expectedKeyName)
     {
-        String str = "    ";
         Variable var = new Variable();
          try {
             var.initInstance(str);
-            assertTrue(false);
+            assertEquals(expectedKeyName,(var.getKeyName()));
         } catch (InvalidVariableSyntaxException e) {
-            assertTrue(true);
-        }
-    }  
-     @Test
-    public void testCreateInstanceWithOnlyTheSpecialCaractere()
-    {
-        String str = "$";
-        Variable var = new Variable();
-         try {
-            var.initInstance(str);
             assertTrue(false);
-        } catch (InvalidVariableSyntaxException e) {
-            assertTrue(true);
-        }
-    }  
-    @Test
-    public void testCreateInstanceWithOnlyAAccolade()
-    {
-        String str = "${";
-       Variable var = new Variable();
-         try {
-            var.initInstance(str);
-            assertTrue(false);
-        } catch (InvalidVariableSyntaxException e) {
-            assertTrue(true);
-        }
-    }  
-    @Test
-    public void testCreateInstanceWithNoKeyName()
-    {
-        String str = "${}";
-       Variable var = new Variable();
-         try {
-            var.initInstance(str);
-            assertTrue(false);
-        } catch (InvalidVariableSyntaxException e) {
-            assertTrue(true);
-        }
+        }    
     } 
+   
     @Test
-    public void testCreateInstanceWithSpaceAsKeyName()
-    {
-        String str = "${ }";
-        Variable var = new Variable();
-        try {
-            var.initInstance(str);
-            assertTrue(false);
-        } catch (InvalidVariableSyntaxException e) {
-            assertTrue(true);
-        }
-    } 
-    @Test
-    public void testCreateInstanceWithSpaceBeforeAndAfterKeyName()
-    {
-        String str = "${ aVar }";
-        Variable var = new Variable();
-         try {
-            var.initInstance(str);
-             assertEquals(" aVar ",(var.getKeyName()));
-        } catch (InvalidVariableSyntaxException e) {
-            assertTrue(false);
-        }
-       
-    } 
-    @Test
-    public void testCreateVariableValidInstance()
-    {
-        String str = "${aVariable}";
-        Variable var = new Variable();
-        try {
-            var.initInstance(str);
-            assertEquals("aVariable",(var.getKeyName()));
-        } catch (InvalidVariableSyntaxException e) {
-            assertTrue(false);
-        }
-    }
-    @Test
-    public void testCreateVariableValidInstanceWithPoint()
-    {
-        String str = "${foo.bar}";
-        Variable var = new Variable();
-        try {
-            var.initInstance(str);
-            assertEquals("foo.bar",(var.getKeyName()));
-        } catch (InvalidVariableSyntaxException e) {
-            assertTrue(false);
-        }
-       
-    }
-    @Test
-    public void testCreateVariableInvalidInstanceWithParenthesis()
+    void testCreateVariableInvalidInstanceWithParenthesis()
     {
         String str = "${foo(bar}";
-       Variable var = new Variable();
+        Variable var = new Variable();
         try {
             var.initInstance(str);
             assertTrue(false);
@@ -142,7 +66,7 @@ public class VariableCreateInstanceTest {
         }
     }   
     @Test
-    public void testCreateVariableInvalidInstanceWithSpaceIntoKeyName()
+    void testCreateVariableInvalidInstanceWithSpaceIntoKeyName()
     {
         String str = "${foo bar}";
         Variable var = new Variable();
@@ -153,50 +77,29 @@ public class VariableCreateInstanceTest {
             assertTrue(true);
         }
     }      
-    @Test
-    public void testValidateAnInValidVariable()
+    @ParameterizedTest
+    @ValueSource(strings = {"${foo bar","${}","${ }","${}a"})
+    void testValidateAnInValidVariable(String str)
     {
-        String str = "${foo bar";
         boolean isValid =Variable.isAValidVariable(str);
         assertTrue(!isValid);
     }  
     @Test
-    public void testValidateAValidVariable()
+    void testValidateAValidVariable()
     {
         String str = "${foo}";
         boolean isValid =Variable.isAValidVariable(str);
         assertTrue(isValid);
-    }  
+    }   
     @Test
-    public void testValidateAnInValidVariableLenghtLessThanFour()
-    {
-        String str = "${}";
-        boolean isValid =Variable.isAValidVariable(str);
-        assertTrue(!isValid);
-    }  
-    @Test
-    public void testValidateAnInValidVariableWithBlankName()
-    {
-        String str = "${ }";
-        boolean isValid =Variable.isAValidVariable(str);
-        assertTrue(!isValid);
-    } 
-    @Test
-    public void testValidateAValidVariableWithOneChar()
+    void testValidateAValidVariableWithOneChar()
     {
         String str = "${a}";
         boolean isValid =Variable.isAValidVariable(str);
         assertTrue(isValid);
     } 
     @Test
-    public void testValidateAnInValidVariableWithOneChar()
-    {
-        String str = "${}a";
-        boolean isValid =Variable.isAValidVariable(str);
-        assertTrue(!isValid);
-    } 
-     @Test
-    public void testNextLexem()
+    void testNextLexem()
     {
         String lexem = "${foo}bar";
         Variable var = new Variable();

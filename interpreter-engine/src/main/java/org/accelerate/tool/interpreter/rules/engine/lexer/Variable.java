@@ -15,7 +15,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
-public class Variable implements Leaf {
+public final class Variable implements Leaf {
     public static final char VARIABLE_CHAR = '$';
     private static final Pattern VARIABLE_SYNTAX_REGEX = Pattern.compile("^[a-zA-Z0-9.]+$");
     private String keyName;

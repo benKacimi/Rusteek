@@ -14,5 +14,10 @@ public class FunctionRuleForTest implements Rule{
     public boolean executeWithWrongReturnType(){
         return false;
     }
+    
+     public String function(){
+        return "foo";
+    }
+    
 
 }
