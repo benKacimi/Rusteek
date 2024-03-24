@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.accelerate.tool</groupId>
         <version>0.1.0</version>
-        <artifactId>interpreter</artifactId>
+        <artifactId>Rusteek</artifactId>
     </parent>
    
     <artifactId>interpreter-function</artifactId>
