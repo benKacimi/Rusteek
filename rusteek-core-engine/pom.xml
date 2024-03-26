@@ -10,12 +10,12 @@
         <artifactId>Rusteek</artifactId>
     </parent>
 
-    <artifactId>interpreter-engine</artifactId>
+    <artifactId>rusteek-engine</artifactId>
     <packaging>jar</packaging>
     
-    <name>Interpeter Engine</name>
+    <name>Rusteek Engine</name>
 	<description>Analyze and eval intruction</description>
-	<url>https://github.com/benKacimi/function-engine</url>
+	<url>https://github.com/benKacimi/Rusteek</url>
 	<inceptionYear>2022</inceptionYear>
 	<licenses>
 		<license>
@@ -30,7 +30,7 @@
 			<id>benkacimi</id>
 			<name>Ben Amar KACIMIr</name>
 			<email>ben.kacimi@gmail.com</email>
-			<url>https://github.com/benKacimi/function-engine</url>
+			<url>https://github.com/benKacimi/Rusteek</url>
 			<timezone>+1</timezone>
 		</developer>
 	</developers>
