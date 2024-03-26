@@ -9,9 +9,9 @@
     <artifactId>Rusteek</artifactId>
     <packaging>pom</packaging>
     
-    <name>Interpeter</name>
+    <name>Rusteek</name>
 	<description>Analyze and eval intruction</description>
-	<url>https://github.com/benKacimi/function-engine</url>
+	<url>https://github.com/benKacimi/Rusteek</url>
 	<inceptionYear>2022</inceptionYear>
 	<licenses>
 		<license>
@@ -47,8 +47,8 @@
     </properties>
 
     <modules>
-        <module>interpreter-engine</module>
-        <module>interpreter-function</module>
+        <module>rusteek-core-engine</module>
+        <module>rusteek-core-function</module>
     </modules>
 
     <dependencies>
