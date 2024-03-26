@@ -10,7 +10,7 @@
         <artifactId>Rusteek</artifactId>
     </parent>
 
-    <artifactId>rusteek-engine</artifactId>
+    <artifactId>rusteek-core-engine</artifactId>
     <packaging>jar</packaging>
     
     <name>Rusteek Engine</name>
