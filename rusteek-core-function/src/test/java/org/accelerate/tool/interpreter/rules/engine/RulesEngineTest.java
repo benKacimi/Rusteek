@@ -8,10 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
+import org.rusteek.engine.RusteekEngine;
+import org.rusteek.engine.ThreadContext;
 
 
 class RulesEngineTest {
-    RulesEngine engine = new RulesEngine();
+    RusteekEngine engine = new RusteekEngine();
     
     @Test
     void testRuleEngineWithAFunctionThatContentAFunctionInParameter()

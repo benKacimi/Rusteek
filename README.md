@@ -47,11 +47,11 @@ That's pretty classic and if you're already familiar with the placeholder princi
 * Maven 3.6.3
 * Git
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=benKacimi_function-engine&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=benKacimi_function-engine)
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=benKacimi_function-engine&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=benKacimi_function-engine)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=benKacimi_function-engine&metric=bugs)](https://sonarcloud.io/summary/new_code?id=benKacimi_function-engine)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=benKacimi_function-engine&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=benKacimi_function-engine)
-[![Known Vulnerabilities](https://snyk.io/test/github/benKacimi/function-engine/badge.svg)](https://snyk.io/test/github/benKacimi/function-engine)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=benKacimi_Rusteek&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=benKacimi_Rusteek)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=benKacimi_Rusteek&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=benKacimi_Rusteek)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=benKacimi_function-engine&metric=bugs)](https://sonarcloud.io/summary/new_code?id=benKacimi_Rusteek)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=benKacimi_Rusteek&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=benKacimi_Rusteek)
+[![Known Vulnerabilities](https://snyk.io/test/github/benKacimi/Rusteek/badge.svg)](https://snyk.io/test/github/benKacimi/Rusteek)
 
 ## Technologies ####
 * Language programming: Java 21
