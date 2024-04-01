@@ -39,7 +39,7 @@ import lombok.experimental.FieldDefaults;
 
     private static final ApplicationContext ruleContainer ;
     static {
-        try {
+        try { 
             ClassLoader classLoader = UnEvaluatedFunction.class.getClassLoader();
             Enumeration<URL> pluginFunctionPropertiesFile = classLoader.getResources("function.properties");
             List<URL> ret = new ArrayList<>();
@@ -47,7 +47,7 @@ import lombok.experimental.FieldDefaults;
                 ret.add(pluginFunctionPropertiesFile.nextElement());
             }
             if (ret.isEmpty()) {
-                ruleContainer = new AnnotationConfigApplicationContext("org.accelerate.tool.interpreter.rules");
+                ruleContainer = new AnnotationConfigApplicationContext("org.rusteek.function");
             } else {
                 List<String> propertieList = new ArrayList<>();
                 ret.forEach(url -> {

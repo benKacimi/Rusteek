@@ -3,6 +3,7 @@ package org.accelerate.tool.interpreter.rules;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+import org.rusteek.function.Hash;
 
 class HashRuleTest {
 
