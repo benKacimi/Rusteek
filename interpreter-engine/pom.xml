@@ -89,7 +89,7 @@
         <dependency>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>sonar-maven-plugin</artifactId>
-            <version>3.10.0.2594</version>
+            <version>3.11.0.3922</version>
         </dependency>
     </dependencies>
     <build>
