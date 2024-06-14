@@ -43,7 +43,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <lombok.version>1.18.30</lombok.version>
-        <spring-context.version>6.1.4</spring-context.version>
+        <spring-context.version>6.1.8</spring-context.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-configuration2-version>2.10.1</commons-configuration2-version>
 
