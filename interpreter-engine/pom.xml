@@ -45,7 +45,7 @@
         <lombok.version>1.18.30</lombok.version>
         <spring-context.version>6.1.4</spring-context.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
-        <commons-configuration2-version>2.10.1</commons-configuration2-version>
+        <commons-configuration2-version>2.11.0</commons-configuration2-version>
 
         <junit.version>5.10.1</junit.version>
         <slf4j-api.version>1.7.36</slf4j-api.version>
