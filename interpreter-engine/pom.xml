@@ -42,10 +42,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <lombok.version>1.18.30</lombok.version>
-        <spring-context.version>6.1.4</spring-context.version>
+        <lombok.version>1.18.34</lombok.version>
+        <spring-context.version>6.1.12</spring-context.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
-        <commons-configuration2-version>2.10.1</commons-configuration2-version>
+        <commons-configuration2-version>2.11.0</commons-configuration2-version>
 
         <junit.version>5.10.1</junit.version>
         <slf4j-api.version>1.7.36</slf4j-api.version>
@@ -89,7 +89,7 @@
         <dependency>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>sonar-maven-plugin</artifactId>
-            <version>3.10.0.2594</version>
+            <version>3.11.0.3922</version>
         </dependency>
     </dependencies>
     <build>
