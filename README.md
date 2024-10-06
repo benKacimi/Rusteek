@@ -35,6 +35,19 @@ In this exemple, we want to set a value for the "server.name" parameter but as t
 
 That's pretty classic and if you're already familiar with the placeholder principle, good news : Rusteek work exactly the same. We won't talk about a Placeholder but about a Variable instead. 
 
+### Function
+
+
+#### Core Function
+Remember : a function return always a string..\ The function can take 0 to n parameters.\ Each parameter is a string.\
+Here is a list of the function currently available in the core language.
+
+Function                                                       | Description
+---------------------------------------------------------------| -------------------------------
+**uuidGeneraror.generateUUID()**                                 | return a [UUID](https://www.ietf.org/rfc/rfc4122.txt) (Universally Unique Identifier) version 4
+**uuidGeneraror.anonymiseUUID(input [stringToReplaceByAnUUID])**       | return a UUID (version 4) and keep in memory the couple [stringToReplaceByAnUUID, newUUIDgenerated] in order to retrieve 
+**hash.SHA3256(input [stringToHash])**                                     | return a SHA3-256 hash of the input
+**hash.SHA3256(input [stringToHash], salt [stringSalt])**                    | return a SHA3-256 hash of the input with the salt
 
 
 

@@ -18,7 +18,7 @@ class RulesEngineTest {
     @Test
     void testRuleEngineWithAFunctionThatContentAFunctionInParameter()
     {
-       String result = engine.execute("@anonymize.anonymiseUUID(${oldId})");
+       String result = engine.execute("@uuidGenerator.anonymiseUUID(${oldId})");
        assertNotEquals(null,result,"Result cannot be null" );
        assertEquals(38,result.length(),"Size of the key expected is 38 instead of : " + result.length());
        ThreadContext.remove();
