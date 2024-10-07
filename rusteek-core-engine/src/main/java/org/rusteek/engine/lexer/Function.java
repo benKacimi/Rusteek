@@ -29,9 +29,28 @@ public abstract class Function  implements Leaf {
         }
         arguments = Argument.createArgumentList(parameter.trim());
     }
+    
     protected static boolean isAValidFunction(final String lexem) {
-        return new UnEvaluatedFunction().checkAndSetFunction(lexem);
+        return checkFunction(lexem);
     }
+    
+    protected static boolean checkFunction(final String lexem) {
+        if (lexem == null) {
+            return false;
+        }
+        int openingParenthesisIndex = lexem.indexOf("(");
+        int closingParenthesisIndex = lexem.indexOf(")");
+
+        if (openingParenthesisIndex != -1 && closingParenthesisIndex > openingParenthesisIndex) {
+            String functionAnnotationName = calculateAnnotationFunctionName(lexem);
+            String functionName = "".equals(functionAnnotationName) ? 
+                                calculateFunctionName(lexem) : 
+                                calculateFunctionName(lexem.substring(1 + functionAnnotationName.length()));
+            return !functionName.isEmpty();
+        }
+        return false;
+    }
+
     protected boolean checkAndSetFunction(final String lexem) {
         if (lexem == null) {
             return false;
@@ -51,6 +70,7 @@ public abstract class Function  implements Leaf {
         }
         return false;
     }
+
     protected static String calculateAnnotationFunctionName(final String phrase) {
         int pointIndex = phrase.indexOf(".");
         String calculatedClassName = "";
@@ -75,6 +95,7 @@ public abstract class Function  implements Leaf {
         }
         return "";
     }
+
     protected static boolean checkFunctionNameSyntax(final String functionName){
         if (functionName == null || "".equals(functionName))
             return false;

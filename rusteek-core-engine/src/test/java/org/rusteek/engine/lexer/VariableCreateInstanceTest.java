@@ -13,9 +13,9 @@ class VariableCreateInstanceTest {
     @Test
     void testCreateInstanceWithNullLexem()
     {
-        Variable var = new Variable();
+        Variable aVar = new Variable();
         try {
-            var.initInstance(null);
+            aVar.initInstance(null);
             assertTrue(false);
         } catch (InvalidVariableSyntaxException e) {
             assertTrue(true);
@@ -26,10 +26,10 @@ class VariableCreateInstanceTest {
     @ValueSource(strings = {""," ","   ","$","${","${}","${ }"})
     void testCreateVariableInstanceWithWrongSyntax(String str)
     {
-        Variable var = new Variable();
+        Variable aVar = new Variable();
     
         try {
-            var.initInstance(str);
+            aVar.initInstance(str);
             assertTrue(false);
         } catch (InvalidVariableSyntaxException e) {
             assertTrue(true);
@@ -44,10 +44,10 @@ class VariableCreateInstanceTest {
     })
     void testCreateSimpleVariableInstance(String str, String expectedKeyName)
     {
-        Variable var = new Variable();
+        Variable aVar = new Variable();
          try {
-            var.initInstance(str);
-            assertEquals(expectedKeyName,(var.getKeyName()));
+            aVar.initInstance(str);
+            assertEquals(expectedKeyName,(aVar.getKeyName()));
         } catch (InvalidVariableSyntaxException e) {
             assertTrue(false);
         }    
@@ -57,9 +57,9 @@ class VariableCreateInstanceTest {
     void testCreateVariableInvalidInstanceWithParenthesis()
     {
         String str = "${foo(bar}";
-        Variable var = new Variable();
+        Variable aVar = new Variable();
         try {
-            var.initInstance(str);
+            aVar.initInstance(str);
             assertTrue(false);
         } catch (InvalidVariableSyntaxException e) {
             assertTrue(true);
@@ -69,9 +69,9 @@ class VariableCreateInstanceTest {
     void testCreateVariableInvalidInstanceWithSpaceIntoKeyName()
     {
         String str = "${foo bar}";
-        Variable var = new Variable();
+        Variable aVar = new Variable();
         try {
-            var.initInstance(str);
+            aVar.initInstance(str);
             assertTrue(false);
         } catch (InvalidVariableSyntaxException e) {
             assertTrue(true);
@@ -102,11 +102,11 @@ class VariableCreateInstanceTest {
     void testNextLexem()
     {
         String lexem = "${foo}bar";
-        Variable var = new Variable();
+        Variable aVar = new Variable();
          try {
-            var.initInstance(lexem);
-            assertEquals("foo",(var.getKeyName()));
-            String nextLexem = var.getNextLexem(lexem);
+            aVar.initInstance(lexem);
+            assertEquals("foo",(aVar.getKeyName()));
+            String nextLexem = aVar.getNextLexem(lexem);
             assertEquals("bar",nextLexem);
         } catch (InvalidVariableSyntaxException e) {
             assertTrue(false);
