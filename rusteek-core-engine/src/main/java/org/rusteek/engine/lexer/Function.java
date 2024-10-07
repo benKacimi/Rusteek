@@ -120,8 +120,12 @@ public abstract class Function  implements Leaf {
         return argumentArray;
     }
 
-    protected String getNonEvaluateFunction() {
-        StringBuilder result = new StringBuilder(String.valueOf(EvaluatedFunction.EVALUATED_FUNCTION_CHAR));
+    public String getNextLexem(final String lexem){
+        return lexem.substring(Argument.getLastIndexOfBalanceBraquet(lexem)+1,lexem.length());
+    }
+
+    protected String buildFunctionString() {
+        StringBuilder result = new StringBuilder("");
         if (!getFunctionAnnotationName().isEmpty()) {
             result.append(getFunctionAnnotationName()).append(".");
         }
@@ -134,9 +138,5 @@ public abstract class Function  implements Leaf {
         }
         result.append(")");
         return result.toString();
-    }
-    
-    public String getNextLexem(final String lexem){
-        return lexem.substring(Argument.getLastIndexOfBalanceBraquet(lexem)+1,lexem.length());
     }
 }

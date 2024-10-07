@@ -25,4 +25,7 @@ public final class UnEvaluatedFunction extends Function {
         return getNonEvaluateFunction();
     }
 
+    protected String getNonEvaluateFunction() {
+        return EvaluatedFunction.EVALUATED_FUNCTION_CHAR+buildFunctionString();
+    }
 }

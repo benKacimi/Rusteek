@@ -108,6 +108,6 @@ import lombok.experimental.FieldDefaults;
     }
 
     private String error(){
-        return getNonEvaluateFunction();
+        return EvaluatedFunction.EVALUATED_FUNCTION_CHAR+buildFunctionString();
     }
 }
