@@ -14,7 +14,7 @@ public final class LeafFactory {
     }
     public static Leaf createInstance(final char specialCharacter){ 
 
-        String leafName = "literal";
+        String leafName = null;
 
         switch (specialCharacter){
             case ('@'):
@@ -26,6 +26,9 @@ public final class LeafFactory {
             case ('$'):
                  leafName = "variable";
                  break;
+            default :
+                leafName = "literal";
+                break;
         }
         return (Leaf)(languageContainer.getBean(leafName));    
     }
