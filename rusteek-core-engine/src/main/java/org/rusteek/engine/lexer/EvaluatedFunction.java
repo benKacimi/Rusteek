@@ -16,8 +16,11 @@ import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -29,6 +32,8 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
+@Component("evaluatedFunction")
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
  public final class EvaluatedFunction extends Function{
     
     public static final char EVALUATED_FUNCTION_CHAR = '@';
@@ -40,7 +45,7 @@ import lombok.experimental.FieldDefaults;
     private static final ApplicationContext ruleContainer ;
     static {
         try { 
-            ClassLoader classLoader = UnEvaluatedFunction.class.getClassLoader();
+            ClassLoader classLoader = EvaluatedFunction.class.getClassLoader();
             Enumeration<URL> pluginFunctionPropertiesFile = classLoader.getResources("function.properties");
             List<URL> ret = new ArrayList<>();
             while (pluginFunctionPropertiesFile.hasMoreElements()) {

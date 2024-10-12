@@ -4,6 +4,9 @@ import java.util.regex.Pattern;
 
 import org.rusteek.engine.ThreadContext;
 import org.rusteek.engine.lexer.execption.InvalidVariableSyntaxException;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -15,6 +18,8 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
+@Component("variable")
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public final class Variable implements Leaf {
     public static final char VARIABLE_CHAR = '$';
     private static final Pattern VARIABLE_SYNTAX_REGEX = Pattern.compile("^[a-zA-Z0-9.]+$");

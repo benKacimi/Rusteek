@@ -74,7 +74,7 @@ class FunctionCalculateFunctionNameTest {
     @Test
     void testIsValideFunctioWithValidFunctionNameWithParameterAndAnnotation()
     {
-        boolean isValid = UnEvaluatedFunction.isAValidFunction("@func(parameter)");
+        boolean isValid = UnEvaluatedFunction.isAValidFunction("@annotation.func(parameter)");
         assertEquals(true , isValid);
     }
     @Test

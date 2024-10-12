@@ -1,6 +1,9 @@
 package org.rusteek.engine.lexer;
 
 import org.rusteek.engine.lexer.execption.InvalidLeafSyntaxException;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -12,6 +15,8 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
+@Component("literal")
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public final class Literal implements Leaf {
     private String value;
 
