@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+     
+    
+    <parent>
+        <groupId>org.accelerate.tool</groupId>
+        <version>0.1.0</version>
+        <artifactId>Rusteek</artifactId>
+    </parent>
+   
+    <artifactId>rusteek-core-function</artifactId>
+    <packaging>jar</packaging>
+    
+    <name>Rusteek Core Function</name>
+	<description>A set of common function</description>
+	<url>https://github.com/benKacimi/Rusteek</url>
+	<inceptionYear>2022</inceptionYear>
+	<licenses>
+		<license>
+			<name>Common Public License Version 1.0</name>
+			<url>http://www.opensource.org/licenses/cpl1.0</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>benkacimi</id>
+			<name>Ben Amar KACIMIr</name>
+			<email>ben.kacimi@gmail.com</email>
+			<url>https://github.com/benKacimi/Rusteek</url>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring-context.version>6.1.4</spring-context.version>
+        <junit.version>5.10.1</junit.version>
+        <slf4j-api.version>1.7.36</slf4j-api.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <version>${project.parent.version}</version>
+            <artifactId>rusteek-core-engine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency> 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring-context.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-api.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.1.2</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
