@@ -32,7 +32,7 @@ public final class Argument extends RootNode {
                     argumentResult.name = paramNames[0].trim();
                     aArguments = paramNames[1];
                 }
-            lexer.lex(aArguments.trim(),argumentResult);
+            lexer.lex(aArguments.trim(),argumentResult,false);
             if(argumentList == null)
                 argumentList = new ArrayList<>();
             argumentList.add(argumentResult);

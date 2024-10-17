@@ -12,7 +12,12 @@ public final class LeafFactory {
     static {
         languageContainer = new AnnotationConfigApplicationContext("org.rusteek.engine.lexer");
     }
-    public static Leaf createInstance(final char specialCharacter){ 
+
+    public static Leaf createInstance(final char specialCharacter){
+        return  createInstance(specialCharacter,false);
+    }
+    
+    public static Leaf createInstance(final char specialCharacter, final boolean recursiveResolution){ 
 
         String leafName = null;
 
@@ -21,7 +26,10 @@ public final class LeafFactory {
                 leafName = "evaluatedFunction";
                 break;
             case ('#'):
-                leafName = "unEvaluatedFunction";
+                if (!recursiveResolution)
+                    leafName = "unEvaluatedFunction";
+                else
+                    leafName = "literal";
                 break;
             case ('$'):
                  leafName = "variable";

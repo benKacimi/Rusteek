@@ -118,6 +118,26 @@ class RulesEngineTest {
        String result = engine.execute("#function()");
        assertEquals("@function()",result,"@function() expected instead of : " + result);
     }
+
+    @Test
+    void testRuleEngineWithANonEvaluatedFunctionWithBlank()
+    {
+         String result = engine.execute("  #function()");
+         assertEquals("@function()",result,"@function() expected instead of : " + result);
+    }
+
+    @Test
+    void testRuleEngineWithDOubleNonEvaluatedFunctionWithBlank()
+    {
+         String result = engine.execute("  #function(   #function())");
+         assertEquals("@function(@function())",result,"@function(@function()) expected instead of : " + result);
+    }
+    @Test
+    void testRuleEngineWithDOubleNonEvaluatedFunctionWithBlankAndAEvalFunctionInParamater()
+    {
+         String result = engine.execute("  #function(   #function(@function()))");
+         assertEquals("@function(@function(foo))",result,"@function(@function(foo)) expected instead of : " + result);
+    }
    @Test
    void testRuleEngineWithThreadlocalValue()
    {
@@ -160,4 +180,39 @@ class RulesEngineTest {
        String result = engine.execute("@@function()");
        assertEquals("@foo",result,"foo expected instead of : " + result);
     }
+
+    @Test
+    void testRecursivityWithVarible()
+    {
+       Map<String, String> localProperties = new HashMap<String, String>();
+       localProperties.put("var1","${var2}");
+       localProperties.put("var2","bar");
+       
+       ThreadContext.setThreadDataMap(localProperties);
+       String result = engine.execute("${ var1 }");
+        
+       assertEquals("bar",result,"bar expected instead of : " + result);
+       ThreadContext.remove();
+       assertNull(ThreadContext.getVariableValue("var1"));
+       
+    } 
+    @Test
+    void testRecursivityWithFunction()
+    {
+       Map<String, String> localProperties = new HashMap<String, String>();
+       localProperties.put("var1","${var2}");
+       localProperties.put("var2","function");
+       localProperties.put("var3","()");
+       
+       ThreadContext.setThreadDataMap(localProperties);
+       String result = engine.execute("@${ var1 }${var3}");
+        
+       assertEquals("foo",result,"foo expected instead of : " + result);
+       ThreadContext.remove();
+       assertNull(ThreadContext.getVariableValue("var1"));
+
+      result = engine.execute("  #function()");
+      assertEquals("@function()",result,"@function() expected instead of : " + result);
+       
+    } 
 }

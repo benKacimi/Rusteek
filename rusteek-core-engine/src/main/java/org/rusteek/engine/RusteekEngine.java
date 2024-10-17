@@ -11,8 +11,14 @@ public final class RusteekEngine {
 
         if (instructionLine == null || "".equals(instructionLine))
             return instructionLine;
-        
-        RootNode root = tokenizer.lex(instructionLine);
+        String result = instructionLine;
+
+        RootNode root = null;
+        for (int recursiveloop = 0;  recursiveloop <= 2;recursiveloop++){
+            root = tokenizer.lex(result,true);
+            result = root.apply();
+        }        
+        root = tokenizer.lex(result,false);
         return root.apply();
     }
 }
