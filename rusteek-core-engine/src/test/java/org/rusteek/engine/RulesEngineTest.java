@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class RulesEngineTest {
    RusteekEngine engine = new RusteekEngine();
@@ -138,35 +140,38 @@ class RulesEngineTest {
          String result = engine.execute("  #function(   #function(@function()))");
          assertEquals("@function(@function(foo))",result,"@function(@function(foo)) expected instead of : " + result);
     }
-   @Test
-   void testRuleEngineWithThreadlocalValue()
+   
+   @ParameterizedTest
+   @ValueSource(strings = {"${var2}","${ var2 }"})
+   void testRuleEngineWithThreadlocalValue(String lexem)
    {
       Map<String, String> localProperties = new HashMap<String, String>();
       localProperties.put("var1","foo");
       localProperties.put("var2","bar");
       ThreadContext.setThreadDataMap(localProperties);
-       String result = engine.execute("${var2}");
+       String result = engine.execute(lexem);
        
        assertEquals("bar",result,"bar expected instead of : " + result);
        ThreadContext.remove();
        assertNull(ThreadContext.getVariableValue("var1"));
    }
+
    @Test
-   void testRuleEngineWithThreadlocalValueAndSpaceCaratere()
+   void testRecursivityWithVarible()
    {
       Map<String, String> localProperties = new HashMap<String, String>();
-      localProperties.put("var1","foo");
+      localProperties.put("var1","${var2}");
       localProperties.put("var2","bar");
       
       ThreadContext.setThreadDataMap(localProperties);
-      String result = engine.execute("${ var2 }");
+      String result = engine.execute("${ var1 }");
        
       assertEquals("bar",result,"bar expected instead of : " + result);
       ThreadContext.remove();
       assertNull(ThreadContext.getVariableValue("var1"));
       
    } 
-    
+
    @Test
    void testRuleEngineWithVariableWithoutValue()
    {
@@ -181,21 +186,7 @@ class RulesEngineTest {
        assertEquals("@foo",result,"foo expected instead of : " + result);
     }
 
-    @Test
-    void testRecursivityWithVarible()
-    {
-       Map<String, String> localProperties = new HashMap<String, String>();
-       localProperties.put("var1","${var2}");
-       localProperties.put("var2","bar");
-       
-       ThreadContext.setThreadDataMap(localProperties);
-       String result = engine.execute("${ var1 }");
-        
-       assertEquals("bar",result,"bar expected instead of : " + result);
-       ThreadContext.remove();
-       assertNull(ThreadContext.getVariableValue("var1"));
-       
-    } 
+   
     @Test
     void testRecursivityWithFunction()
     {
