@@ -27,10 +27,11 @@ public final class Literal implements Leaf {
         value = lexem;
         for(int i = 0 ; i < lexem.length() ; i++) {
             if (lexem.charAt(i) == EvaluatedFunction.EVALUATED_FUNCTION_CHAR || lexem.charAt(i) == UnEvaluatedFunction.UNEVALUATED_FUNCTION_CHAR ) {
-                if (Function.isAValidFunction(lexem.substring(i))){
-                    value = lexem.substring(0,i);
-                    return ;
-                }
+                if (Function.isAValidFunction(lexem.substring(i)) && !(i == 0 && lexem.charAt(i) == UnEvaluatedFunction.UNEVALUATED_FUNCTION_CHAR)){
+                        value = lexem.substring(0,i);
+                        return ;
+                    }
+                
             } else if (lexem.charAt(i) == Variable.VARIABLE_CHAR  &&  (Variable.isAValidVariable(lexem.substring(i)))){
                 value = lexem.substring(0,i);
                 return ;
