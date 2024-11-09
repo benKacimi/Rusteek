@@ -204,6 +204,15 @@ class RulesEngineTest {
 
       result = engine.execute("  #function()");
       assertEquals("@function()",result,"@function() expected instead of : " + result);
-       
+      
+      //check if the cache has no effect if we change variable values
+      Map<String, String> localProperties2 = new HashMap<String, String>();
+      localProperties2.put("var1","bar");
+      localProperties2.put("var2","function");
+      localProperties2.put("var3","()");
+      ThreadContext.setThreadDataMap(localProperties2);
+      result = engine.execute("@${ var1 }${var3}");
+      assertEquals("@bar()",result,"@bar() expected instead of : " + result);
+
     } 
 }
